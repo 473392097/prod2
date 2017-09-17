@@ -47,80 +47,67 @@
                         <input type="radio" name="isGifts" value="y" title="是" checked>
                         <input type="radio" name="isGifts" value="n" title="否">
                     </div>
-
-                <#--<label class="layui-form-label">销售方式</label>-->
-                <#--<div class="layui-input-inline">-->
-                <#--<select id="pId" name="saleCode" >-->
-                <#--<option value="0">一级</option>-->
-                <#--<option value="1">二级</option>-->
-                <#--</select>-->
-                <#--</div>-->
-
-
                 </div>
 
             </div>
+
+
+
+
 
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">商品类别</label>
                     <div class="layui-input-inline">
-                        <select id="pId" name="supId">
+                        <select id="pId" name="prdType">
                         <#list proType as item>
                             <option value="${item.tp_name}">${item.tp_name}</option>
                         </#list>
-
                         </select>
-
-
                     </div>
-
-                    <label class="layui-form-label">可预售</label>
+                    <label class="layui-form-label">退换货</label>
                     <div class="layui-input-inline">
-                        <input type="radio" name="isUsed" value="y" title="是" checked>
-                        <input type="radio" name="isUsed" value="n" title="否">
+                        <input type="radio" name="isReturn" value="y" title="是" checked>
+                        <input type="radio" name="isReturn" value="n" title="否">
                     </div>
-
-
                 </div>
             </div>
+
+
 
 
             <div class="layui-form-item">
-                <label class="layui-form-label">上架时间</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="shDate" lay-verify="require" autocomplete="off" class="layui-input">
-                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">上架时间</label>
+                    <div class="layui-input-inline">
+                        <input name="shDate"   class="layui-input" placeholder="上架时间" onclick="layui.laydate({elem: this})">
+                    </div>
 
-                <label class="layui-form-label">退换货</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="isReturn" value="y" title="是" checked>
-                    <input type="radio" name="isReturn" value="n" title="否">
                 </div>
-
             </div>
+
 
 
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">售卖方式</label>
                     <div class="layui-input-inline">
-                        <select id="pId" name="supId">
-                        <#list proInfo as item>
-                            <option value="${item.sale_code}">${item.sale_code}</option>
-                        </#list>
+                        <select id="pId" name="saleCode">
+                            <option >请选择</option>
+                            <option >线上</option>
+                            <option >线下</option>
+                        <#--<#list proInfo1 as item>-->
+                            <#--<option value="${item.sale_code}">${item.sale_code}</option>-->
+                        <#--</#list>-->
 
                         </select>
-
-
                     </div>
 
-                    <label class="layui-form-label">可预售</label>
+                    <label class="layui-form-label">是否可用</label>
                     <div class="layui-input-inline">
                         <input type="radio" name="isUsed" value="y" title="是" checked>
                         <input type="radio" name="isUsed" value="n" title="否">
                     </div>
-
                 </div>
             </div>
 
@@ -129,7 +116,7 @@
             <div class="layui-input-inline">
                 <select id="pId" name="supId">
                 <#list supplier as item>
-                    <option value="${item.sup_name}">${item.sup_name}</option>
+                    <option value="${item.id}">${item.sup_name}</option>
                 </#list>
                 </select>
             </div>
@@ -148,64 +135,17 @@
         </form>
     </div>
 </fieldset>
+
+
 <script type="text/javascript" src="/resources/layui/layui.js"></script>
 <script>
     //Demo
     // 待学生自主完成
-    layui.use(['form', 'jquery', 'layer', 'upload'], function () {
+    layui.use(['form', 'jquery', 'layer', 'upload','laydate'], function () {
         var $ = layui.jquery;
         var form = layui.form();
         var layer = layui.layer;
-
-//
-//        $.ajax({
-//            type: "POST",
-////            url: "/menu/getAllParentNodeInfo.do",  //后台程序地址
-//            //data: data,  //需要post的数据
-//            success: function(result){
-//                alert(result)
-//                for(var i=0; i<result.length;i++){
-//                        $("#prdType").append("<option value=\""+result[i].id+"\" selected>"+result[i].name+"</option>");
-//                }
-//                form.render();
-//            }
-//        });
-
-
-        form.on("select(menuLevel)", function (data) {
-            // 获取一级菜单个数，初始化只有1个
-            var parentMenu = $("#pId option").length;
-            // 选择二级菜单并且是第一次时才会发送请求
-//            if(data.value == '1') {
-//                $("#switch").removeAttr("style");
-//                $("#pId").removeAttr("disabled");
-//                if(parentMenu < 2) {
-//                    $("#pId").attr("lay-verify","required");
-//                    $.ajax({
-//                        type: "POST",
-//                        url: "/menu/getAllParentNodeInfo.do",  //后台程序地址
-//                        //data: data,  //需要post的数据
-//                        success: function(result){           //后台程序返回的标签，比如我喜欢使用1和0 表示成功或者失败
-//                            for(var i=0; i<result.length;i++){
-//                                if(i == 0) {
-//                                    $("#pId").append("<option value=\""+result[i].id+"\" selected>"+result[i].name+"</option>");
-//                                } else {
-//                                    $("#pId").append("<option value=\""+result[i].id+"\">"+result[i].name+"</option>");
-//
-//                                }
-//                            }
-//                            form.render();
-//                        }
-//                    });
-//                }
-//            } else {
-//                $("#pId").removeAttr("lay-verify");
-//                $("#pId").attr("disabled","disabled");
-//                $("#switch").attr("style","display:none");
-//            }
-//            form.render();
-        });
-
+        var laydate = layui.laydate;
 
         //头像上传
         layui.upload({
@@ -223,7 +163,7 @@
             var data = $("form").serializeArray();
             $.ajax({
                 type: "POST",
-                url: "/menu/addMenuForm.do",  //后台程序地址
+                url: "/prd/addProInfo.do",  //后台程序地址
                 data: data,  //需要post的数据
                 success: function (data) {           //后台程序返回的标签，比如我喜欢使用1和0 表示成功或者失败
                     if (data.result == 'success') {   //如果成功了, 则关闭当前layer

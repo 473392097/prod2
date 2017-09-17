@@ -16,4 +16,6 @@ public interface ProInfoService {
 
 //上传图片
 //    public void upateImage(String avatar);
+
+    void insertPro(Map<String,Object> params);
 }

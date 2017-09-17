@@ -35,6 +35,11 @@ public class ProInfoServiceImpl implements ProInfoService{
         return mapList;
     }
 
+    @Override
+    public void insertPro(Map<String, Object> params) {
+        proInfoMapper.insertPro(params);
+    }
+
 
 //    @Override
 //    public void upateImage(String avatar) {

@@ -3,6 +3,8 @@ package com.lanou.cn.controller;
 import com.lanou.cn.entity.ProType;
 import com.lanou.cn.service.impl.ProInfoServiceImpl;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +54,7 @@ public class ProController {
     }
 
 
-    @ModelAttribute("proInfo")
+    @ModelAttribute("proInfo1")
     public List<Map<String,Object>> proInfo(){
         List<Map<String,Object>> list =proInfoService.proInfo();
         System.out.println("jiguo3"+list);
@@ -97,14 +99,18 @@ public class ProController {
 
 
 
-
-
-
-
-
-
-
-
+  //添加
+    @RequestMapping("addProInfo")
+    public Map<String,Object> addProInfo(@RequestParam Map<String,Object> params){
+        Map<String,Object> map = new HashMap<>();
+        System.out.println(params.get("isGifts"));
+        System.out.println("进去了");
+        proInfoService.insertPro(params);
+        map.put("result","success");
+        map.put("result","failuer");
+        System.out.println("方法后面");
+        return map;
+    }
 
 
 

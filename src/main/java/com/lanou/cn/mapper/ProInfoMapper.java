@@ -16,4 +16,7 @@ public interface ProInfoMapper {
     //上传图片
 //    public void upateImage(String imgUrl);
 
+
+    void insertPro(Map<String,Object> params);
+
 }
