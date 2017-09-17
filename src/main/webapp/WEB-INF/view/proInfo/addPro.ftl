@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="/resources/layui/css/layui.css">
 </head>
 <body>
-<fieldset class="layui-elem-field" >
+<fieldset class="layui-elem-field">
     <legend>添加菜单</legend>
-    <div class="layui-field-box" >
+    <div class="layui-field-box">
         <form class="layui-form">
 
 
@@ -28,15 +28,10 @@
                     <label class="layui-form-label">添加活动</label>
                     <div class="layui-input-inline">
                         <input type="radio" name="isSales" value="y" title="是" checked>
-                        <input type="radio" name="isSales" value="n" title="否" >
+                        <input type="radio" name="isSales" value="n" title="否">
                     </div>
-
-
                 </div>
-
             </div>
-
-
 
 
 
@@ -50,16 +45,16 @@
                     <label class="layui-form-label">捆绑销售</label>
                     <div class="layui-input-inline">
                         <input type="radio" name="isGifts" value="y" title="是" checked>
-                        <input type="radio" name="isGifts" value="n" title="否" >
+                        <input type="radio" name="isGifts" value="n" title="否">
                     </div>
 
-                    <#--<label class="layui-form-label">销售方式</label>-->
-                    <#--<div class="layui-input-inline">-->
-                        <#--<select id="pId" name="saleCode" >-->
-                            <#--<option value="0">一级</option>-->
-                            <#--<option value="1">二级</option>-->
-                        <#--</select>-->
-                    <#--</div>-->
+                <#--<label class="layui-form-label">销售方式</label>-->
+                <#--<div class="layui-input-inline">-->
+                <#--<select id="pId" name="saleCode" >-->
+                <#--<option value="0">一级</option>-->
+                <#--<option value="1">二级</option>-->
+                <#--</select>-->
+                <#--</div>-->
 
 
                 </div>
@@ -67,24 +62,28 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">商品类别</label>
-                <div class="layui-input-inline">
-                    <select id="pId" name="supId" >
-                    <#list proType as item>
-                        <option value="${item.tpName}">${item.tpName} </option>
-                    </#list>
-                    </select>
-                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">商品类别</label>
+                    <div class="layui-input-inline">
+                        <select id="pId" name="supId">
+                        <#list proType as item>
+                            <option value="${item.tp_name}">${item.tp_name}</option>
+                        </#list>
 
-               <div>
-                    <label class="layui-form-label">可预售</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="isUsed" value="y" title="是" checked>
-                        <input type="radio" name="isUsed" value="n" title="否" >
+                        </select>
+
+
                     </div>
+
+                    <label class="layui-form-label">可预售</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="isUsed" value="y" title="是" checked>
+                        <input type="radio" name="isUsed" value="n" title="否">
+                    </div>
+
+
                 </div>
             </div>
-
 
 
             <div class="layui-form-item">
@@ -93,46 +92,45 @@
                     <input type="text" name="shDate" lay-verify="require" autocomplete="off" class="layui-input">
                 </div>
 
-                    <label class="layui-form-label">退换货</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="isReturn" value="y" title="是" checked>
-                        <input type="radio" name="isReturn" value="n" title="否" >
-                    </div>
+                <label class="layui-form-label">退换货</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="isReturn" value="y" title="是" checked>
+                    <input type="radio" name="isReturn" value="n" title="否">
+                </div>
 
             </div>
-
-
-
-
-
 
 
             <div class="layui-form-item">
-                <label class="layui-form-label">售卖形式</label>
-                <div class="layui-input-inline">
-                    <select id="pId" name="saleCode" >
-                        <option value="0">网站</option>
-                        <option value="1">线上</option>
-                    </select>
-                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">售卖方式</label>
+                    <div class="layui-input-inline">
+                        <select id="pId" name="supId">
+                        <#list proInfo as item>
+                            <option value="${item.sale_code}">${item.sale_code}</option>
+                        </#list>
+
+                        </select>
 
 
-                  <div>
-                    <label class="layui-form-label">是否使用</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="isUsed" value="y" title="是" checked>
-                        <input type="radio" name="isUsed" value="n" title="否" >
                     </div>
+
+                    <label class="layui-form-label">可预售</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="isUsed" value="y" title="是" checked>
+                        <input type="radio" name="isUsed" value="n" title="否">
+                    </div>
+
                 </div>
             </div>
-
 
 
             <label class="layui-form-label">供应商</label>
             <div class="layui-input-inline">
-                <select id="pId" name="supId" >
-                    <option value="0">康师傅</option>
-                    <option value="1">康帅府</option>
+                <select id="pId" name="supId">
+                <#list supplier as item>
+                    <option value="${item.sup_name}">${item.sup_name}</option>
+                </#list>
                 </select>
             </div>
 
@@ -154,7 +152,7 @@
 <script>
     //Demo
     // 待学生自主完成
-    layui.use(['form','jquery','layer','upload'], function(){
+    layui.use(['form', 'jquery', 'layer', 'upload'], function () {
         var $ = layui.jquery;
         var form = layui.form();
         var layer = layui.layer;
@@ -174,24 +172,7 @@
 //        });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        form.on("select(menuLevel)",function (data) {
+        form.on("select(menuLevel)", function (data) {
             // 获取一级菜单个数，初始化只有1个
             var parentMenu = $("#pId option").length;
             // 选择二级菜单并且是第一次时才会发送请求
@@ -229,31 +210,27 @@
         //头像上传
         layui.upload({
             url: '/user/upload.do'
-            ,method: 'post' //上传接口的http类型
-            ,success: function(res){
+            , method: 'post' //上传接口的http类型
+            , success: function (res) {
                 layer.msg("上传成功");
                 //LAY_demo_upload.src = res.url;
             }
         });
 
 
-
-
-
-
         //监听提交
-        form.on('submit(addMenuForm)', function(params){
+        form.on('submit(addMenuForm)', function (params) {
             var data = $("form").serializeArray();
             $.ajax({
                 type: "POST",
                 url: "/menu/addMenuForm.do",  //后台程序地址
                 data: data,  //需要post的数据
-                success: function(data){           //后台程序返回的标签，比如我喜欢使用1和0 表示成功或者失败
-                    if (data.result == 'success'){   //如果成功了, 则关闭当前layer
-                        layer.msg('添加成功',{
+                success: function (data) {           //后台程序返回的标签，比如我喜欢使用1和0 表示成功或者失败
+                    if (data.result == 'success') {   //如果成功了, 则关闭当前layer
+                        layer.msg('添加成功', {
                             icon: 1,
                             time: 1000 //1秒关闭（如果不配置，默认是3秒）
-                        },function(){//
+                        }, function () {//
                             //do something
                             //注册成功后，自动关闭当前注册页面
                             //先得到当前iframe层的索引

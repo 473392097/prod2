@@ -4,19 +4,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.lanou.cn.mapper.ProInfoMapper">
-    <resultMap id="typemap" type="com.lanou.cn.entity.ProType">
-        <id></id>
-        <result property="tpCd" column="tp_cd"/>
-        <result property="tpName" column="tp_name"/>
-        <result property="isUsed" column="is_used"/>
-        <result property="instDate" column="inst_date"/>
-        <result property="instId" column="inst_id"/>
-        <result property="mdfDate" column="mdf_date"/>
-        <result property="mdfId" column="mdf_id"/>
-    </resultMap>
-    <select id="selectPrdType" resultMap="typemap">
+    <!--<resultMap id="typemap" type="com.lanou.cn.entity.ProType">-->
+        <!--<id></id>-->
+        <!--<result property="tpCd" column="tp_cd"/>-->
+        <!--<result property="tpName" column="tp_name"/>-->
+        <!--<result property="isUsed" column="is_used"/>-->
+        <!--<result property="instDate" column="inst_date"/>-->
+        <!--<result property="instId" column="inst_id"/>-->
+        <!--<result property="mdfDate" column="mdf_date"/>-->
+        <!--<result property="mdfId" column="mdf_id"/>-->
+    <!--</resultMap>-->
+    <!--查询商品类别表-->
+    <select id="selectPrdType"  resultType="map"  >
         SELECT * FROM prd_type
     </select>
+
+
+<!--查询供应商表-->
+    <select id="supplier"  resultType="map"  >
+        SELECT * FROM supplier
+    </select>
+
+    <!--查询商品表-->
+    <select id="proInfo"  resultType="map"  >
+        SELECT * FROM pro_info
+    </select>
+
+    <!--在商品表中插入图片路径-->
+    <!--<insert id="upateImage"  parameterType="String">-->
+        <!--INSERT  INTO  pro_info(img_urls) VALUES #{imgUrl}-->
+    <!--</insert>-->
+
+
+
 
 
 </mapper>
