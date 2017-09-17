@@ -2,5 +2,21 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.lanou.cn.mapper.ProInfoMapper">
+    <resultMap id="typemap" type="com.lanou.cn.entity.ProType">
+        <id></id>
+        <result property="tpCd" column="tp_cd"/>
+        <result property="tpName" column="tp_name"/>
+        <result property="isUsed" column="is_used"/>
+        <result property="instDate" column="inst_date"/>
+        <result property="instId" column="inst_id"/>
+        <result property="mdfDate" column="mdf_date"/>
+        <result property="mdfId" column="mdf_id"/>
+    </resultMap>
+    <select id="selectPrdType" resultMap="typemap">
+        SELECT * FROM prd_type
+    </select>
+
+
 </mapper>
