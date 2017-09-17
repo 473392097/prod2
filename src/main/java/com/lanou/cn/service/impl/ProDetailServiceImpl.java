@@ -1,5 +1,7 @@
 package com.lanou.cn.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lanou.cn.mapper.ProDetailMapper;
 import com.lanou.cn.service.ProDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,26 @@ public class ProDetailServiceImpl implements ProDetailService {
 
 
     @Override
-    public List<Map<String, Object>> getAllDetail() {
+    public PageInfo<Map<String, Object>> getAllDetail(Map<String,Object> params) {
+        Integer currentPage = params.get("currentPage") == null ? 1:Integer.parseInt((String)params.get("currentPage"));
 
-        return mapper.getAllDetail();
+        PageHelper.startPage(currentPage, 5);
+        List<Map<String,Object>> list = mapper.getAllDetail(params);
+        //用PageInfo对结果进行包装
+        PageInfo<Map<String,Object>> page = new PageInfo<Map<String,Object>>(list);
+        //测试PageInfo全部属性
+        return page;
+
+    }
+
+    @Override
+    public Map<String, Object> getOneDetail(int id) {
+
+        return mapper.getOneDetail(id);
+    }
+
+    @Override
+    public void updateProDetail(Map<String, Object> map) {
+        mapper.update(map);
     }
 }
