@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/spring-context.xml" })
@@ -31,6 +32,6 @@ public class ControllerTest{
 
 	@Test
 	public void proDetailTest(){
-		System.out.println(mapper.getAllDetail());
+		System.out.println(mapper.getAllDetail(new HashMap<>()));
 	}
 }
