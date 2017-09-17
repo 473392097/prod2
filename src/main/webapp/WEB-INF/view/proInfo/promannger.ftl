@@ -20,18 +20,18 @@
 
                 <label class="layui-form-label">商品编号</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="prdNo" name="prdNo"  value="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" id="prdNo" name="prdNo"  value="${params.prdNo!''}" placeholder="请输入" autocomplete="off" class="layui-input">
                 </div>
 
                 <label class="layui-form-label">商品名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="prdName" name="prdName"  value="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" id="prdName" name="prdName"  value="${params.prdName!''}" placeholder="请输入" autocomplete="off" class="layui-input">
                 </div>
 
 
                 <label class="layui-form-label">参加活动</label>
                 <div class="layui-input-inline">
-                    <select id="isSales" name="isSales"  >
+                    <select id="isSales" name="isSales"   >
                         <option  value="" >请选择</option>
                         <option value="y" >参加</option>
                         <option value="n">不参加</option>
@@ -41,7 +41,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商品简码</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="prdCode" name="prdCode"  value="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" id="prdCode" name="prdCode"  value="${params.prdCode!''}" placeholder="请输入" autocomplete="off" class="layui-input">
                 </div>
 
 
@@ -58,19 +58,22 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商品类别</label>
                 <div class="layui-input-inline">
-                    <select id="prdType" name="prdType">
+                    <select id="prdType" name="prdType" >
                         <option value="" >请选择</option>
                     <#list proType as item>
-                       <option value="${item.tpCd}">${item.tpName}</option>
+                       <option value="${item.tp_cd}">${item.tp_name}</option>
                     </#list>
                     </select>
                 </div>
 
 
                 <label class="layui-form-label">上架时间</label>
+                <div class="layui-input-inline" >
+                    <input id="instDate1" name="instDate1" type="date" value="${params.instDate1!''}" placeholder="开始日" onclick="layui.laydate({elem: this})">
+                </div>
+
                 <div class="layui-input-inline">
-                    <input id="instDate1" name="instDate1" value="" class="layui-input-inline" placeholder="开始日" onclick="layui.laydate({elem: this})">
-                    <input id="instDate1" name="instDate2" value="" class="layui-input-inline" placeholder="截止日" onclick="layui.laydate({elem: this})">
+                    <input id="instDate1" name="instDate2" type="date" value="${params.instDate2!''}"  placeholder="截止日" onclick="layui.laydate({elem: this})">
                 </div>
             </div>
 
@@ -99,8 +102,8 @@
                 <div class="layui-input-inline">
                     <select id="supId" name="supId" >
                         <option value="" >请选择</option>
-                    <#list Supplier as item>
-                        <option value="${item.id}">${item.supName}</option>
+                    <#list supplier as item>
+                        <option value="${item.id}">${item.sup_name}</option>
                     </#list>
                     </select>
                 </div>
@@ -181,8 +184,8 @@
 <#if item.saleCode=='100'>热线
 </#if>
 <#if item.saleCode=='200' >网站
-</#if>
 <#else>手机app
+</#if>
 </td>
     <td>
         <#if item.isGifts=='y'>是
@@ -200,7 +203,8 @@
         </#if>
     </td>
 <td><input id="send" hidden="hidden" value="${item.prdNo}">
-<a class="userInfo" href="javascript:;">修改</a><a class="userInfo" href="javascript:;">添加明细</a></td>
+
+<a class="update" href="javascript:;">修改</a>&nbsp;&nbsp;<a class="addplus" href="javascript:;">添加明细</a></td>
 </tr>
 </#list>
 </tbody>
@@ -240,9 +244,58 @@ layui.define([ 'element', 'form', 'layer', 'laypage','laydate'], function(export
                 $("#pageSubmit").submit();
             }
         }
+
     });
+    var isSales2="${params.isSales!''}";
+    var ss1 = "#isSales option[value='"+isSales2+"']";
+    $(ss1).attr('selected','selected');
 
+    var isReturn2="${params.isReturn!''}";
+    var ss2 = "#isReturn option[value='"+isReturn2+"']";
+    $(ss2).attr('selected','selected');
 
+    var prdType2="${params.prdType!''}";
+    var ss3 = "#prdType option[value='"+prdType2+"']";
+    $(ss3).attr('selected','selected');
+
+    var saleCode2="${params.saleCode!''}";
+    var ss4 = "#saleCode option[value='"+saleCode2+"']";
+    $(ss4).attr('selected','selected');
+
+    var isUsed2="${params.isUsed!''}";
+    var ss5 = "#isUsed option[value='"+isUsed2+"']";
+    $(ss5).attr('selected','selected');
+
+    var supId2="${params.supId!''}";
+    var ss6 = "#supId option[value='"+supId2+"']";
+    $(ss6).attr('selected','selected');
+
+    var isGifts2="${params.isGifts!''}";
+    var ss7 = "#isGifts option[value='"+isGifts2+"']";
+    $(ss7).attr('selected','selected');
+    form.render();
+    // 修改商品信息
+    $(".update").on("click",function(){
+
+        layer.open({
+            title: '修改'
+            ,area: ['500px', '400px']
+            ,type: 2 //content内容为一个连接
+
+            ,content: '/prd/getProInfo.do?prdNo='+ $(this).prev("#send").val()
+        });
+    })
+    // 添加商品明细
+    $(".addplus").on("click",function(){
+
+        layer.open({
+            title: '修改'
+            ,area: ['500px', '400px']
+            ,type: 2 //content内容为一个连接
+
+            ,content: '/prd/addProDetails.do?prdNo='+ $(this).prev("#send").val()
+        });
+    })
         })
         </script>
 </body>

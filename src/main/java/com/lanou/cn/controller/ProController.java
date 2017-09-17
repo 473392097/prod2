@@ -1,5 +1,6 @@
 package com.lanou.cn.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.lanou.cn.entity.ProType;
 import com.lanou.cn.service.impl.ProInfoServiceImpl;
 
@@ -54,47 +55,6 @@ public class ProController {
     }
 
 
-    @ModelAttribute("proInfo1")
-    public List<Map<String,Object>> proInfo(){
-        List<Map<String,Object>> list =proInfoService.proInfo();
-        System.out.println("jiguo3"+list);
-        System.out.println("结果三的后面");
-        return list;
-    }
-
-
-
-
-//    @RequestMapping("upload")
-//    @ResponseBody
-//    public Map<String, Object> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
-//        Map<String, Object> result = new HashMap<>();
-//        // 判断文件是否为空
-//        if (!file.isEmpty()) {
-//            try {
-//                // 文件保存路径
-//                String str="/upload/avatar/"+file.getOriginalFilename();
-//                //图像的绝对路径
-//                String filePath = request.getSession().getServletContext().getRealPath("/") + "upload/avatar/" + file.getOriginalFilename();
-//                System.out.println("头像路径为"+filePath);
-////                File newFile = new File(filePath);
-////                newFile.createNewFile();
-//                proInfoService.upateImage(str);
-//                result.put("filepath",filePath);
-//                System.out.println("222222222222222222");
-//
-//                // 把接收到的file直接存到硬盘       转存文件
-//                file.transferTo(new File(filePath));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        result.put("result", "success");
-//        return result;
-
-
-//    }
-
 
 
 
@@ -104,6 +64,7 @@ public class ProController {
     public Map<String,Object> addProInfo(@RequestParam Map<String,Object> params){
         Map<String,Object> map = new HashMap<>();
         System.out.println(params.get("isGifts"));
+        System.out.println(params.get("supId"));
         System.out.println("进去了");
         proInfoService.insertPro(params);
         map.put("result","success");
@@ -111,7 +72,64 @@ public class ProController {
         System.out.println("方法后面");
         return map;
     }
+    
 
 
+
+    @RequestMapping("getProInfo")
+    public ModelAndView getProInfo(String prdNo){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("proInfo/proInfo");
+        Map<String,Object> menu= proInfoService.getProInfo(prdNo);
+        System.out.println(menu.toString());
+        modelAndView.addObject("result",menu);
+
+        return modelAndView;
+    }
+
+
+    @RequestMapping("updateProInfo")
+    @ResponseBody
+    public Map<String,String> updateProInfo(@RequestParam Map<String,Object> params) {
+        Map<String,String> result = new HashMap<>();
+        int a=proInfoService.updateProInfo(params);
+        if(a==1){
+            result.put("result","success");
+            return  result;
+        }
+        result.put("result","failure");
+        return  result;
+    }
+
+    //跳转到前端添加商品页面
+    @RequestMapping("promannger")
+    public ModelAndView promannger(@RequestParam Map<String,Object> params){
+        ModelAndView modelAndView = new ModelAndView();
+        // 后期需要优化
+
+        PageInfo<Map<String, Object>> pageInfo = proInfoService.findProPageList(params);
+        if(pageInfo.getPages()<pageInfo.getPageNum()){
+            pageInfo.setPageNum(1);
+        }
+        modelAndView.addObject("page",pageInfo);
+
+        modelAndView.addObject("list",pageInfo.getList());
+        modelAndView.addObject("params",null == params? new HashMap():params);
+        modelAndView.setViewName("/proInfo/promannger");
+        return modelAndView;
+    }
+
+
+
+
+
+    @RequestMapping("addProDetails")
+    @ResponseBody
+    public ModelAndView addProDetails(String prdNo) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("proInfo/addDetails");
+        modelAndView.addObject("prdNo",prdNo);
+        return modelAndView;
+    }
 
 }

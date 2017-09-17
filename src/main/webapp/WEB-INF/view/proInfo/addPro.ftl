@@ -26,7 +26,7 @@
 
 
                     <label class="layui-form-label">添加活动</label>
-                    <div class="layui-input-inline">
+                    <div class="layui-input-inline" >
                         <input type="radio" name="isSales" value="y" title="是" checked>
                         <input type="radio" name="isSales" value="n" title="否">
                     </div>
@@ -61,7 +61,7 @@
                     <div class="layui-input-inline">
                         <select id="pId" name="prdType">
                         <#list proType as item>
-                            <option value="${item.tp_name}">${item.tp_name}</option>
+                            <option value="${item.id}">${item.tp_name}</option>
                         </#list>
                         </select>
                     </div>
