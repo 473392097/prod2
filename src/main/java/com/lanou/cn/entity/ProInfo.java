@@ -9,7 +9,7 @@ public class ProInfo {
     int supId;//供应商ID
     String shDate;//上架时间
     String imgUrl;//图片地址url
-    String isGifts;//是否为赠品
+    String isGifts;//是否为赠品(捆绑)
     String isSales;//是否参与活动
     String saleCode;//售卖方式
     String isReturn;//是否支持退换货

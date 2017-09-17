@@ -2,5 +2,36 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.lanou.cn.mapper.ProInfoMapper">
+    <!--查询商品类别表-->
+    <select id="selectPrdType"  resultType="map"  >
+        SELECT * FROM prd_type
+    </select>
+
+<!--查询供应商表-->
+    <select id="supplier"  resultType="map"  >
+        SELECT * FROM supplier
+    </select>
+
+    <!--查询商品表-->
+    <select id="proInfo"  resultType="map"  >
+        SELECT * FROM pro_info
+    </select>
+
+    <!--在商品表中插入图片路径-->
+    <!--<insert id="upateImage"  parameterType="String">-->
+        <!--INSERT  INTO  pro_info(img_urls) VALUES #{imgUrl}-->
+    <!--</insert>-->
+
+    <!--插入商品信息表-->
+    <insert id="insertPro" parameterType="map">
+        INSERT INTO pro_info(prd_name)
+        VALUES (#{prdName})
+    </insert>
+
+
+
+
+
 </mapper>
