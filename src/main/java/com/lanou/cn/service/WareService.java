@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface WareService {
     //查询所有的仓储信息
-    List<Map<String,Object>> findWareList();;
+    List<Map<String,Object>> findWareList();
 
     /**
      * 根据id获取仓储信息
@@ -21,7 +21,7 @@ public interface WareService {
     void updateWare(Map<String,Object> params);
 
     /**
-     * 添加仓储
+     * 添加仓储信息
      * @param params
      */
     void addWare(Map<String,Object> params);

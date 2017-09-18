@@ -27,7 +27,7 @@ public class WareController {
         return "/ware/wareList";
     }
 
-
+    //回显仓储信息
     @RequestMapping("getMenuListByPage")
     public ModelAndView getMenuListByPage() {
         ModelAndView modelAndView = new ModelAndView();
@@ -37,6 +37,7 @@ public class WareController {
         return modelAndView;
 
     }
+    //跳转到仓储信息修改页面
     @RequestMapping("updateWare")
     public ModelAndView updateWare(int id) {
         ModelAndView modelAndView = new ModelAndView();
@@ -45,7 +46,7 @@ public class WareController {
         modelAndView.setViewName("/ware/updateWare");
         return modelAndView;
     }
-
+    //修改仓储信息
     @RequestMapping("updateWareForm")
     @ResponseBody
     public Map<String,Object> updateWareForm(@RequestParam Map<String,Object> params) {
@@ -54,7 +55,7 @@ public class WareController {
             result.put("result","success");
         return result;
     }
-
+    //添加仓储信息
     @RequestMapping("addWareForm")
     @ResponseBody
     public Map<String,Object> addWareForm(@RequestParam Map<String,Object> params) {

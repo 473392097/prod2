@@ -13,14 +13,21 @@ public class WareServiceImpl implements WareService {
     @Resource
     private WareMapper wareMapper;
 
-
+    /**
+     * 所有的仓储信息
+     * @return
+     */
     @Override
-    //返回所有的仓储
     public List<Map<String, Object>> findWareList() {
 
         return wareMapper.findWares();
     }
 
+    /**
+     * 根据id返回仓储信息
+     * @param id
+     * @return
+     */
     @Override
     public Map<String, Object> findWareInfoById(Integer id) {
 
@@ -28,6 +35,10 @@ public class WareServiceImpl implements WareService {
         return wareInfo;
     }
 
+    /**
+     * 更新仓储信息
+     * @param params
+     */
     @Override
     public void updateWare(Map<String, Object> params) {
 
@@ -35,6 +46,10 @@ public class WareServiceImpl implements WareService {
 
     }
 
+    /**
+     * 添加仓储信息
+     * @param params
+     */
     @Override
     public void addWare(Map<String, Object> params) {
         wareMapper.addWare(params);

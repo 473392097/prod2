@@ -81,6 +81,8 @@
                             var index = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(index);
                         });
+                    }else if(data.result=='faile'){
+                        layer.msg('修改失败')
                     }
                 }
             });

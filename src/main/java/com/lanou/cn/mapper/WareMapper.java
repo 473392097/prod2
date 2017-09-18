@@ -9,12 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 public interface WareMapper {
-
+    /**
+     * 查询所有仓储信息
+     * @return
+     */
     @Select("select * from ware ")
     List<Map<String,Object>> findWares();
 
     /**
-     * 根据id获取菜单信息
+     * 根据id获取仓储信息
      * @param id
      * @return
      */
@@ -22,14 +25,14 @@ public interface WareMapper {
     Map<String,Object> findWareById(@Param("id") Integer id);
 
     /**
-     * 更新菜单
+     * 更新仓储信息
      * @param params
      */
     @Update("update ware set w_no= #{wareNo} , w_name= #{wareName},w_addr= #{wareAddr},is_used= #{isUsed},w_type= #{wareType} where id = #{id}")
     void updateWare(Map<String,Object> params);
 
     /**
-     * 添加菜单
+     * 添加仓储信息
      * @return
      */
     @Insert("insert into ware(w_no,w_name,w_addr,is_used,w_type) values(#{params.wareNo},#{params.wareName},#{params.wareAddr},#{params.isUsed},#{params.wareType})")
