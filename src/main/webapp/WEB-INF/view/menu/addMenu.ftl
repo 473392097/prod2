@@ -65,6 +65,7 @@
         var $ = layui.jquery;
         var form = layui.form();
         var layer = layui.layer;
+
         
         form.on("select(menuLevel)",function (data) {
             // 获取一级菜单个数，初始化只有1个
