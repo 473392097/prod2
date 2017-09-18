@@ -22,4 +22,10 @@ public interface ProDetailService {
      * @param map
      */
     void updateProDetail(Map<String,Object> map);
+
+    /**
+     * 添加商品明细
+     * @param map
+     */
+    void insertProDetail(Map<String,Object> map);
 }

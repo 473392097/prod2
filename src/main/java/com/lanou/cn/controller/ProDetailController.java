@@ -63,4 +63,20 @@ public class ProDetailController {
     public List<Map<String,Object>> getAllWare(){
         return  mapper.getAllWare();
     }
+
+    //添加商品明细
+    @RequestMapping("addProDetail")
+    public Map<String,Object> addProDetail(@RequestParam Map<String,Object> params){
+        Map<String,Object> map=new HashMap<>();
+        System.out.println("添加商品明细接收的参数:"+params);
+        try {
+            service.insertProDetail(params);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("result","error");
+            return map;
+        }
+        map.put("result","success");
+        return map;
+    }
 }

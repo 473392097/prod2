@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lanou.cn.mapper.ProDetailMapper">
+
+
     <select id="getAllDetail" parameterType="map" resultType="map">
         SELECT
         pd.*,pi.prd_name,pwr.w_count,pwr.is_used,ware.w_name
         FROM
         prd_detail AS pd,pro_info AS pi,prodetail_ware_relation AS pwr,ware
-#         LEFT JOIN pro_info
-#         ON prd_id=pro_info.prd_no
-#         LEFT JOIN prodetail_ware_relation
-#         ON prd_id=prodetail_ware_relation.prd_no
-#         LEFT JOIN ware
-#         ON prd_detail.ware_id=ware.w_no
+        #         LEFT JOIN pro_info
+        #         ON prd_id=pro_info.prd_no
+        #         LEFT JOIN prodetail_ware_relation
+        #         ON prd_id=prodetail_ware_relation.prd_no
+        #         LEFT JOIN ware
+        #         ON prd_detail.ware_id=ware.w_no
         WHERE pd.prd_dtl_id=pwr.prd_dtl_no AND ware.w_no=pwr.w_no AND pi.prd_no=pwr.prd_no
         <if test="null != prd_name and '' != prd_name">
             and prd_name = #{prd_name}
@@ -86,4 +88,16 @@
             a.prd_dtl_id=b.prd_dtl_no
 
     </update>
+
+    <select id="insert" parameterType="map">
+        INSERT INTO
+          prd_detail(prd_id,prd_dtl_id,prd_dtl_name,source_price,sale_price,ware_id)
+                VALUES (#{prd_id},#{prd_dtl_id},#{prd_dtl_name},#{source_price},#{sale_price},#{w_no})
+    </select>
+
+    <select id="insert2" parameterType="map">
+        INSERT INTO
+          prodetail_ware_relation(prd_no, prd_dtl_no, w_no, w_count, is_used)
+                VALUES (#{prd_id},#{prd_dtl_id},#{w_no},#{w_count},#{is_used})
+    </select>
 </mapper>

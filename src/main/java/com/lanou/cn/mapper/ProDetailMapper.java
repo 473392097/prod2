@@ -19,10 +19,15 @@ public interface ProDetailMapper {
 
     //插入一个商品详情
     void insert(Map<String, Object> map);
-
+    //插入一个商品详情的同时往关系表中插入一条数据
+    void insert2(Map<String, Object> map);
 
     //查询出所有的仓库名称 用于修改商品明细是回显
     @Select("select * from ware")
     List<Map<String,Object>> getAllWare();
+
+    //查询出当前商品明细表的最后一条数据的主键id用于插入数据时明细id的计算
+    @Select("select id from prd_detail order by id desc limit 1")
+    int getFirstId();
 
 }

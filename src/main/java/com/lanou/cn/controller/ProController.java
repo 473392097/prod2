@@ -2,10 +2,12 @@ package com.lanou.cn.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.lanou.cn.entity.ProType;
+import com.lanou.cn.mapper.ProDetailMapper;
 import com.lanou.cn.service.impl.ProInfoServiceImpl;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,8 @@ public class ProController {
 //    商品信息实现层类
     @Resource
     private ProInfoServiceImpl proInfoService;
+    @Autowired
+    private ProDetailMapper mapper;
 
 //跳转到前端添加商品页面
     @RequestMapping("addProduct")
@@ -124,12 +128,17 @@ public class ProController {
 
 
     @RequestMapping("addProDetails")
-    @ResponseBody
-    public ModelAndView addProDetails(String prdNo) {
+    public ModelAndView addProDetails(int prdNo) {
+        System.out.println(prdNo);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("proInfo/addDetails");
         modelAndView.addObject("prdNo",prdNo);
         return modelAndView;
+    }
+
+    @ModelAttribute("ware")
+    public List<Map<String,Object>> getAllWare(){
+        return  mapper.getAllWare();
     }
 
 }
