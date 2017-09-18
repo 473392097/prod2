@@ -112,7 +112,7 @@
 
         //头像上传
         layui.upload({
-            url: '/prd/upload.do'
+            url: '/prd/upload1.do'
             , method: 'post' //上传接口的http类型
             ,ext:'jpg|png|gif|jpeg'
             , success: function (res) {

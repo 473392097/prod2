@@ -148,7 +148,7 @@ public class ProDetailController {
         return map;
     }
 
-    @RequestMapping("upload")
+    @RequestMapping("upload1")
     @ResponseBody
     public Map<String, Object> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
         Map<String, Object> result = new HashMap<>();

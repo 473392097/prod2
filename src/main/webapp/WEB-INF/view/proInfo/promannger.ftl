@@ -207,9 +207,12 @@
                 <#else>否
                 </#if>
             </td>
-            <td><input  id="send" hidden="hidden" value="${item.prdNo}">
+            <td><div><input  id="send" hidden="hidden" value="${item.prdNo}">
 
-                <a class="addplus"   href="javascript:;">添加明细</a> &nbsp;&nbsp;<a class="update" href="javascript:;">修改</a>
+                <a class="addplus"   href="javascript:;">添加明细</a> </div>&nbsp;&nbsp;
+                <div><input  id="send" hidden="hidden" value="${item.prdNo}">
+                <a class="update" href="javascript:;">修改</a>
+            </div>
             </td>
         </tr>
         </#list>
