@@ -30,4 +30,10 @@ public interface ProDetailMapper {
     @Select("select id from prd_detail order by id desc limit 1")
     int getFirstId();
 
+    //查看该明细下所有的仓库对应关系
+    List<Map<String,Object>> getproDetailInfo(int id);
+
+    void updateRelation(Map<String,Object> map);
+
+    void insertRelation(Map<String,Object> map);
 }

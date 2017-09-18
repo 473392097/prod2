@@ -4,17 +4,11 @@
 
 
     <select id="getAllDetail" parameterType="map" resultType="map">
-        SELECT
-        pd.*,pi.prd_name,pwr.w_count,pwr.is_used,ware.w_name
-        FROM
-        prd_detail AS pd,pro_info AS pi,prodetail_ware_relation AS pwr,ware
-        #         LEFT JOIN pro_info
-        #         ON prd_id=pro_info.prd_no
-        #         LEFT JOIN prodetail_ware_relation
-        #         ON prd_id=prodetail_ware_relation.prd_no
-        #         LEFT JOIN ware
-        #         ON prd_detail.ware_id=ware.w_no
-        WHERE pd.prd_dtl_id=pwr.prd_dtl_no AND ware.w_no=pwr.w_no AND pi.prd_no=pwr.prd_no
+        select b.*,c.*,pro_info.prd_name
+        from prd_detail AS b
+        LEFT JOIN (select a.prd_dtl_no,a.prd_no,SUM(a.w_count) as totalcount from prodetail_ware_relation as a GROUP BY prd_dtl_no,a.prd_no) as c ON c.prd_dtl_no=b.prd_dtl_id
+        LEFT JOIN pro_info ON b.prd_id=pro_info.prd_no
+        WHERE 1=1
         <if test="null != prd_name and '' != prd_name">
             and prd_name = #{prd_name}
         </if>
@@ -28,76 +22,87 @@
         <if test="null != price_max and '' != price_max">
             and sale_price <![CDATA[ <= ]]> #{price_max}
         </if>
-        <if test="null != w_name and '' != w_name">
-            and w_name = #{w_name}
-        </if>
-        <if test="null != count_min and '' != count_min">
-            and w_count <![CDATA[ >= ]]> #{count_min}
-        </if>
-        <if test="null != count_max and '' != count_max">
-            and w_count <![CDATA[ <= ]]> #{count_max}
-        </if>
+        <!--<if test="null != w_name and '' != w_name">-->
+            <!--and w_name = #{w_name}-->
+        <!--</if>-->
+        <!--<if test="null != count_min and '' != count_min">-->
+            <!--and w_count <![CDATA[ >= ]]> #{count_min}-->
+        <!--</if>-->
+        <!--<if test="null != count_max and '' != count_max">-->
+            <!--and w_count <![CDATA[ <= ]]> #{count_max}-->
+        <!--</if>-->
         <choose>
             <when test="null != is_used and '' != is_used">
                 <choose>
 
                     <when test='is_used=="n"'>
-                        and pwr.is_used = 'n'
+                        and b.is_used = 'n'
                     </when>
-                    <otherwise> and pwr.is_used = 'y'</otherwise>
+                    <otherwise> and b.is_used = 'y'</otherwise>
                 </choose>
             </when>
-            <otherwise>and pwr.is_used = 'y'</otherwise>
+            <otherwise>and b.is_used = 'y'</otherwise>
 
         </choose>
 
-        <if test="null != is_used and '' != is_used">
-            and pwr.is_used = #{is_used}
-        </if>
+        <!--<if test="null != is_used and '' != is_used">-->
+            <!--and pwr.is_used = #{is_used}-->
+        <!--</if>-->
 
-        order by pd.prd_id
+        order by b.prd_id
 
 
     </select>
 
 
     <select id="getOneDetail" parameterType="int" resultType="map">
-        SELECT DISTINCT
-            pd.*,pwr.w_count,pwr.is_used,ware.w_name,ware.w_no
+        SELECT
+            pd.*
         FROM
-            prd_detail AS pd,pro_info AS pi,prodetail_ware_relation AS pwr,ware
+            prd_detail AS pd
         WHERE
             pd.prd_dtl_id=#{id}
-        AND
-            pd.prd_dtl_id=pwr.prd_dtl_no
-        AND
-            ware.w_no=pwr.w_no
+
 
     </select>
 
     <update id="update" parameterType="map">
         UPDATE
-                prd_detail AS a,prodetail_ware_relation AS b
+                prd_detail AS a
         SET
               a.prd_dtl_name=#{prd_dtl_name}
-            ,a.img_url=#{img_url},a.sale_price=#{sale_price},b.w_count=#{w_count},
-            b.w_no=#{w_no},b.is_used=#{isUsed}
+            ,a.img_url=#{img_url},a.sale_price=#{sale_price}
         WHERE
             a.prd_dtl_id=#{prd_dtl_id}
-        AND
-            a.prd_dtl_id=b.prd_dtl_no
+
 
     </update>
 
     <select id="insert" parameterType="map">
         INSERT INTO
-          prd_detail(prd_id,prd_dtl_id,prd_dtl_name,source_price,sale_price,ware_id)
-                VALUES (#{prd_id},#{prd_dtl_id},#{prd_dtl_name},#{source_price},#{sale_price},#{w_no})
+          prd_detail(prd_id,prd_dtl_id,prd_dtl_name,source_price,sale_price,is_used,img_url)
+                VALUES (#{prd_id},#{prd_dtl_id},#{prd_dtl_name},#{source_price},#{sale_price},#{is_used},#{img_url})
     </select>
 
     <select id="insert2" parameterType="map">
         INSERT INTO
           prodetail_ware_relation(prd_no, prd_dtl_no, w_no, w_count, is_used)
                 VALUES (#{prd_id},#{prd_dtl_id},#{w_no},#{w_count},#{is_used})
+    </select>
+
+    <select id="getproDetailInfo" parameterType="int" resultType="map">
+        select a.*,ware.w_name from prodetail_ware_relation as a,ware
+        where prd_dtl_no=#{id} and a.w_no=ware.w_no
+    </select>
+
+    <select id="updateRelation" parameterType="map">
+        UPDATE prodetail_ware_relation
+          SET w_count=#{w_count}
+            WHERE w_no=#{w_no}
+              AND prd_dtl_no=#{prd_dtl_no}
+    </select>
+
+    <select id="insertRelation" parameterType="map">
+        INSERT INTO prodetail_ware_relation(prd_no,prd_dtl_no,w_no,w_count,is_used) VALUES (#{prd_id},#{prd_dtl_id},#{w_no},#{w_count},#{is_used})
     </select>
 </mapper>

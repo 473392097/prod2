@@ -49,4 +49,23 @@ public class ProDetailServiceImpl implements ProDetailService {
         mapper.insert(map);
         mapper.insert2(map);
     }
+
+    @Override
+    public List<Map<String, Object>> getproDetailInfo(int id) {
+
+
+        return  mapper.getproDetailInfo(id);
+    }
+
+    @Override
+    public void updateRelation(Map<String, Object> map) {
+        mapper.updateRelation(map);
+    }
+
+    @Override
+    public void insertRelation(Map<String, Object> map) {
+        mapper.insertRelation(map);
+    }
+
+
 }

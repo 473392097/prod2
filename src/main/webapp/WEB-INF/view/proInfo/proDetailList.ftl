@@ -75,10 +75,10 @@
             <col width="200">
             <col width="100">
             <col width="100">
+            <#--<col width="100">-->
+            <#--<col width="200">-->
             <col width="100">
-            <col width="200">
             <col width="100">
-            <col width="50">
             <col>
         </colgroup>
         <thead>
@@ -90,7 +90,7 @@
             <th>成本价格</th>
             <th>销售价格</th>
             <th>是否可用</th>
-            <th>仓储名称</th>
+            <#--<th>仓储名称</th>-->
             <th>库存数量</th>
             <th>操作</th>
         </tr>
@@ -109,9 +109,12 @@
                     <#else>禁用
                 </#if>
             </td>
-            <td>${item.w_name}</td>
-            <td>${item.w_count! ''}</td>
-            <td><button value="${item.prd_dtl_id}" class="manageMenu layui-btn layui-btn-normal layui-btn-small"><i class="layui-icon"></i></button></td>
+            <#--<td>${item.w_name}</td>-->
+            <td>${item.totalcount! ''}</td>
+            <td><button value="${item.prd_dtl_id}" class="manageMenu layui-btn layui-btn-normal layui-btn-small"><i class="layui-icon">修改</i></button>
+                <button value="${item.prd_dtl_id}" class="manageMenu1 layui-btn layui-btn-normal layui-btn-small"><i class="layui-icon">查看</i></button>
+                <button value="${item.prd_dtl_id}n${item.prd_id}" class="manageMenu2 layui-btn layui-btn-normal layui-btn-small"><i class="layui-icon">添加</i></button>
+            </td>
 
         </tr>
         </#list>
@@ -173,9 +176,31 @@
             var id = $(this).val()
             layer.open({
                 title: '管理菜单 - 惠买ivalue管理系统'
-                ,area: ['500px', '600px']
+                ,area: ['500px', '300px']
                 ,type: 2 //content内容为一个连接
                 ,content: '/prd/getUpdatePage.do?id='+id
+            });
+        });
+
+        //查看该明细下的所有仓库对应信息
+        $(".manageMenu1").on("click",function(){
+            var id = $(this).val()
+            layer.open({
+                title: '查看 - 惠买ivalue管理系统'
+                ,area: ['60%', '500px']
+                ,type: 2 //content内容为一个连接
+                ,content: '/prd/getDetailInfo.do?id='+id
+            });
+        });
+
+        //添加该明细下的仓库对应信息
+        $(".manageMenu2").on("click",function(){
+            var id = $(this).val()
+            layer.open({
+                title: '添加 - 惠买ivalue管理系统'
+                ,area: ['60%', '500px']
+                ,type: 2 //content内容为一个连接
+                ,content: '/prd/addDetailInfo.do?id='+id
             });
         });
     });

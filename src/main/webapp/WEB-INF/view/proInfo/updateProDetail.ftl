@@ -10,61 +10,28 @@
     <div class="layui-field-box">
         <form class="layui-form">
             <!-- id作为隐藏域 明细编号-->
-            <input type="hidden" name="prd_dtl_id" value="${onedetail.prd_dtl_id}">
+            <#--<input  name="prd_dtl_id" value="${onedetail.prd_dtl_id}">-->
             <div class="layui-form-item">
                 <label class="layui-form-label">明细名称</label>
                 <div class="layui-input-block">
-                    <input type="text" id="name" name="prd_dtl_name" value="${onedetail.prd_dtl_name}" required
+                    <input type="text" id="name" name="prd_dtl_name" value="${onedetail.prd_dtl_name! ''}" required
                            lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">图片</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="url" name="img_url" value="${onedetail.img_url}" required
+                    <input type="text" id="url" name="img_url" value="${onedetail.img_url! ''}" required
                            lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">销售价格</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="url" name="sale_price" value="${onedetail.sale_price}" required
+                    <input type="text" id="url" name="sale_price" value="${onedetail.sale_price! ''}" required
                            lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">库存数量</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="url" name="w_count" value="${onedetail.w_count}" required
-                           lay-verify="required" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">仓库位置</label>
-            <#--<div class="layui-input-inline">-->
-            <#--&lt;#&ndash;<input type="text" id="url" name="w_name" value="${onedetail.w_name}" required lay-verify="required" autocomplete="off" class="layui-input">&ndash;&gt;-->
-            <#--</div>-->
-                <div class="layui-input-inline">
-                    <select id="w_no" name="w_no">
-                        <option value="${onedetail.w_no}">${onedetail.w_name}</option>
-                        <#list ware as item>
-                        <#if onedetail.w_name!=item.w_name>
-                            <option value="${item.w_no}">${item.w_name}</option>
-                        </#if>
-                        </#list>
-                        <#--<option value="y">使用</option>-->
-                        <#--<option value="n">禁用</option>-->
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">是否使用</label>
-                <div class="layui-input-inline">
-                    <input type="radio" name="isUsed" value="y" title="启用">
-                    <input type="radio" name="isUsed" value="n" title="禁用">
-                </div>
-            </div>
-
 
             <div class="layui-form-item">
                 <div class="layui-input-block">

@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +69,12 @@ public class ProDetailController {
 
     //添加商品明细
     @RequestMapping("addProDetail")
-    public Map<String,Object> addProDetail(@RequestParam Map<String,Object> params){
+    @ResponseBody
+    public Map<String,Object> addProDetail(@RequestParam Map<String,Object> params,HttpServletRequest req){
         Map<String,Object> map=new HashMap<>();
+
+        String imgurl= (String) req.getSession().getAttribute("str");
+        params.put("img_url",imgurl);
         System.out.println("添加商品明细接收的参数:"+params);
         try {
             service.insertProDetail(params);
@@ -79,4 +86,89 @@ public class ProDetailController {
         map.put("result","success");
         return map;
     }
+
+    //查看该明细下所有的仓库对应信息
+    @RequestMapping("getDetailInfo")
+    public ModelAndView getDetailInfo(int id){
+        System.out.println("shangpng明细id"+id);
+        ModelAndView modelAndView = new ModelAndView("/proInfo/proDetailInfo");
+        System.out.println(service.getproDetailInfo(id));
+        modelAndView.addObject("proDetailInfo",service.getproDetailInfo(id));
+        return modelAndView;
+    }
+
+    //更新仓库与明细关系表
+    @RequestMapping("updateRelation")
+    @ResponseBody
+    public String updateRelation(@RequestParam Map<String,Object> params){
+        Map<String,Object> map=new HashMap<>();
+        System.out.println("更新仓库与明细关系表接收的参数:"+params);
+        try {
+            service.updateRelation(params);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("result","error");
+            return "UPDATE FAILER FUCK!(～￣▽￣)～(～￣▽￣)～";
+        }
+        map.put("result","success");
+        return "UPDATE SUCCESS(￣▽￣)~*";
+    }
+        //跳转到更新仓库与明细关系表界面
+    @RequestMapping("addDetailInfo")
+    public ModelAndView addDetailInfo(@RequestParam Map<String,Object> params){
+        ModelAndView modelAndView = new ModelAndView("/proInfo/addDetailInfo");
+        System.out.println(params);
+        String str= (String) params.get("id");
+        Map<String,Object> map=new HashMap<>();
+        Integer prd_dtl_id=Integer.parseInt(str.split("n")[0]);
+        Integer prd_id=Integer.parseInt(str.split("n")[1]);
+        System.out.println(prd_dtl_id+" -"+prd_id);
+        map.put("prd_dtl_id",prd_dtl_id);
+        map.put("prd_id",prd_id);
+        //modelAndView.addObject("prd_dtl_id",prd_dtl_id);
+        modelAndView.addObject("aaa",map);
+
+        return modelAndView;
+    }
+
+    //更新仓库与明细关系表
+    @RequestMapping("insertRelation")
+    @ResponseBody
+    public Map<String,Object> insertRelation(@RequestParam Map<String,Object> params){
+        Map<String,Object> map=new HashMap<>();
+        System.out.println("添加仓库与明细关系表接收的参数:"+params);
+        try {
+            service.insertRelation(params);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("result","error");
+            return map;
+        }
+        map.put("result","success");
+        return map;
+    }
+
+    @RequestMapping("upload")
+    @ResponseBody
+    public Map<String, Object> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        Map<String, Object> result = new HashMap<>();
+        // 判断文件是否为空
+        if (!file.isEmpty()) {
+            try {
+                // 文件保存路径
+                String str="/avatar/"+file.getOriginalFilename();
+                request.getSession().setAttribute("str",str);
+                //图像的绝对路径
+                String filePath = request.getSession().getServletContext().getRealPath("/") + "avatar/" + file.getOriginalFilename();
+                result.put("filepath",filePath);
+                // 把接收到的file直接存到硬盘       转存文件
+                file.transferTo(new File(filePath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        result.put("result", "success");
+        return result;
+    }
+
 }

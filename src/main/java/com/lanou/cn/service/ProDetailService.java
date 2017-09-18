@@ -28,4 +28,19 @@ public interface ProDetailService {
      * @param map
      */
     void insertProDetail(Map<String,Object> map);
+
+
+
+    /**
+     * 查看该明细下所有的仓库对应关系
+     * @param id
+     * @return
+     */
+    List<Map<String,Object>> getproDetailInfo(int id);
+
+    //更新仓库与明细关系表updateRelation
+
+    void updateRelation(Map<String,Object> map);
+
+    void insertRelation(Map<String,Object> map);
 }

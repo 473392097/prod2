@@ -6,7 +6,7 @@
 </head>
 <body>
 <fieldset class="layui-elem-field">
-    <legend>添加菜单</legend>
+    <legend>添加mingxi</legend>
     <div class="layui-field-box">
         <form class="layui-form">
 
@@ -15,7 +15,7 @@
 
                 <label class="layui-form-label">商品id</label>
                 <div class="layui-input-inline">
-                    <input type="text" disabled name="prd_id" value="#{prdNo}" class="layui-input">
+                    <input type="text"  name="prd_id" value="#{prdNo}" class="layui-input">
                 </div>
 
             </div>
@@ -32,7 +32,7 @@
 
                 <label class="layui-form-label">明细商品图片</label>
                 <div class="layui-input-inline">
-                    <input type="file" name="img_url" class="layui-upload-file">
+                    <input type="file" name="file" class="layui-upload-file">
                 </div>
 
             </div>
@@ -112,8 +112,9 @@
 
         //头像上传
         layui.upload({
-            url: ''
+            url: '/prd/upload.do'
             , method: 'post' //上传接口的http类型
+            ,ext:'jpg|png|gif|jpeg'
             , success: function (res) {
                 layer.msg("上传成功");
                 //LAY_demo_upload.src = res.url;
