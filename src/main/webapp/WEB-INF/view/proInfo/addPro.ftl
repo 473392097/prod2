@@ -19,11 +19,15 @@
                     </div>
 
 
-                    <label class="layui-form-label">明细商品图片</label>
+
+                    <label class="layui-form-label">头像</label>
                     <div class="layui-input-inline">
-                        <input type="file" name="imgUrl" class="layui-upload-file">
+                        <input type="file" id="file" name="file" class="layui-upload-file">
                     </div>
 
+                    <#--<div class="layui-input-block">-->
+                        <#--<input type="file" id="file" name="file" class="layui-upload-file">-->
+                    <#--</div>-->
 
                     <label class="layui-form-label">添加活动</label>
                     <div class="layui-input-inline" >
@@ -153,15 +157,7 @@
         var layer = layui.layer;
         var laydate = layui.laydate;
 
-        //头像上传
-        layui.upload({
-            url: '/user/upload.do'
-            , method: 'post' //上传接口的http类型
-            , success: function (res) {
-                layer.msg("上传成功");
-                //LAY_demo_upload.src = res.url;
-            }
-        });
+
 
 
         //监听提交
@@ -174,24 +170,43 @@
                 success: function (data) {
                     //后台程序返回的标签，比如我喜欢使用1和0 表示成功或者失败
                     console.log(data)
-
                     if (data.result == 'success') {   //如果成功了, 则关闭当前layer
                         layer.msg('添加成功', {
                             icon: 1,
                             time: 1000 //1秒关闭（如果不配置，默认是3秒）
                         }, function () {//
-                            //do something
-                            //注册成功后，自动关闭当前注册页面
-                            //先得到当前iframe层的索引
                             var index = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(index);
-                            //parent.layer.closeAll("iframe");
                         });
                     }
                 }
             });
             return false;//return false 表示不通过页面刷新方式提交表单
         });
+
+
+        //头像上传
+        //头像上传
+        layui.upload({
+            url: '/prd/upload.do'
+            ,method: 'post'
+            ,ext:'jpg|png|gif|jpeg'//上传接口的http类型
+//            res 接收的是map里面存放的数据,可以通过键获取里面的值
+            ,success: function(res){
+                layer.msg("上传成功");
+                //LAY_demo_upload.src = res.url;
+            }
+        });
+
+
+
+
+
+
+
+
+
+
     });
 </script>
 </body>
