@@ -23,6 +23,7 @@ import java.util.Map;
 @RequestMapping("prd")
 public class ProController {
 
+    private static final String LOGIN_INFO = "imgUrl";
 
 //    商品信息实现层类
     @Resource
@@ -63,8 +64,7 @@ public class ProController {
 
 
 
-  //添加
-
+    //添加商品信息
     @RequestMapping("addProInfo")
     @ResponseBody
     public Map<String,Object> addProInfo(@RequestParam Map<String,Object> params,HttpServletRequest request){
@@ -79,7 +79,8 @@ public class ProController {
         params.put("instDate",new Date());//创建时间
         params.put("instId",a);//创建人id
         params.put("mdfDate",new Date());//修改时间
-        System.out.println("进去了");
+        String str = (String) request.getSession().getAttribute("str");
+        params.put("imgUrl",str);
         try {
             proInfoService.insertPro(params);
         }catch (Exception e){
@@ -91,6 +92,45 @@ public class ProController {
         System.out.println("方法后面");
         return map;
     }
+
+
+    @RequestMapping("upload")
+    @ResponseBody
+    public Map<String, Object> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        Map<String, Object> result = new HashMap<>();
+        // 判断文件是否为空
+        if (!file.isEmpty()) {
+            try {
+                // 文件保存路径
+                String str="/avatar/"+file.getOriginalFilename();
+                request.getSession().setAttribute("str",str);
+                //图像的绝对路径
+                String filePath = request.getSession().getServletContext().getRealPath("/") + "avatar/" + file.getOriginalFilename();
+                result.put("filepath",filePath);
+                // 把接收到的file直接存到硬盘       转存文件
+                file.transferTo(new File(filePath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        result.put("result", "success");
+        return result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
