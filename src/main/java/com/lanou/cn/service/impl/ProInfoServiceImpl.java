@@ -14,6 +14,7 @@ import java.util.Map;
 public class ProInfoServiceImpl implements ProInfoService{
 
 
+
     @Resource
     private ProInfoMapper proInfoMapper;
 
@@ -50,6 +51,20 @@ public class ProInfoServiceImpl implements ProInfoService{
     @Override
     public void insertPro(Map<String, Object> params) {
         proInfoMapper.insertPro(params);
+    }
+
+    //查询用户表获取id
+    @Override
+    public int selectUserId(String username) {
+        int a = proInfoMapper.selectUserId(username);
+        return a;
+    }
+
+    //查询商品表的最后一条记录的id
+    @Override
+    public int selctProLastId() {
+        int a = proInfoMapper.selctProLastId();
+        return a;
     }
 
 

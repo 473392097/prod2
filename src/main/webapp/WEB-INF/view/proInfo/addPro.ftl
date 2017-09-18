@@ -93,11 +93,17 @@
                     <label class="layui-form-label">售卖方式</label>
                     <div class="layui-input-inline">
                         <select id="pId" name="saleCode">
-                            <option >请选择</option>
-                            <option >线上</option>
-                            <option >线下</option>
-                        <#--<#list proInfo1 as item>-->
-                            <#--<option value="${item.sale_code}">${item.sale_code}</option>-->
+                            <option>请选择</option>
+                            <option value="100" >热线</option>
+                            <option value="200" >网上</option>
+                            <option value="300" >手机</option>
+
+                        <#--<#list proInfo as item>-->
+                            <#--<#if  item.sale_code=='100'><option >热线</option>-->
+                            <#--<#elseif item.sale_code=='200'><option>网上</option>-->
+                            <#--<#elseif item.sale_code=='300'><option>手机</option>-->
+                            <#--</#if>-->
+                            <#--&lt;#&ndash;<option value="${item.sale_code}">${item.sale_code}</option>&ndash;&gt;-->
                         <#--</#list>-->
 
                         </select>
@@ -165,7 +171,10 @@
                 type: "POST",
                 url: "/prd/addProInfo.do",  //后台程序地址
                 data: data,  //需要post的数据
-                success: function (data) {           //后台程序返回的标签，比如我喜欢使用1和0 表示成功或者失败
+                success: function (data) {
+                    //后台程序返回的标签，比如我喜欢使用1和0 表示成功或者失败
+                    console.log(data)
+
                     if (data.result == 'success') {   //如果成功了, 则关闭当前layer
                         layer.msg('添加成功', {
                             icon: 1,

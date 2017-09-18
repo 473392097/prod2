@@ -18,4 +18,7 @@ public interface ProInfoService {
 //    public void upateImage(String avatar);
 
     void insertPro(Map<String,Object> params);
+    int selectUserId(String username);
+    //查询商品表的最后一条记录的id
+    int selctProLastId();
 }

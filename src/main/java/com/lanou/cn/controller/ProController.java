@@ -7,16 +7,14 @@ import com.lanou.cn.service.impl.ProInfoServiceImpl;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,21 +52,42 @@ public class ProController {
         return list;
     }
 
-
+    // 查询供应商表,返回集合对象
+    @ModelAttribute("proInfo")
+    public List<Map<String,Object>> proInfo(){
+        List<Map<String,Object>> list =proInfoService.proInfo();
+        System.out.println("jiguo3"+list);
+        return list;
+    }
 
 
 
 
   //添加
+
     @RequestMapping("addProInfo")
-    public Map<String,Object> addProInfo(@RequestParam Map<String,Object> params){
+    @ResponseBody
+    public Map<String,Object> addProInfo(@RequestParam Map<String,Object> params,HttpServletRequest request){
         Map<String,Object> map = new HashMap<>();
-        System.out.println(params.get("isGifts"));
-        System.out.println(params.get("supId"));
+        int a = proInfoService.selectUserId((String) request.getSession().getAttribute("loginInfo"));//获取登录名
+        int b = proInfoService.selctProLastId();
+        int c = b +1;
+        String  prdType = (String) params.get("prdType");//获取类别的id
+        String pid = "" + c;//把id转换为字符串
+        String prdNo =pid+prdType;//拼接成的字符串
+        params.put("prdNo",prdNo);//创建时间
+        params.put("instDate",new Date());//创建时间
+        params.put("instId",a);//创建人id
+        params.put("mdfDate",new Date());//修改时间
         System.out.println("进去了");
-        proInfoService.insertPro(params);
+        try {
+            proInfoService.insertPro(params);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("result","failuer");
+            return map;
+        }
         map.put("result","success");
-        map.put("result","failuer");
         System.out.println("方法后面");
         return map;
     }
@@ -133,3 +152,5 @@ public class ProController {
     }
 
 }
+
+

@@ -56,6 +56,18 @@
         SELECT * FROM pro_info
     </select>
 
+
+
+
+
+    <!--查询用户表,获取用户的id-->
+    <select id="selectUserId" parameterType="String"  resultType="int">
+        SELECT id from users WHERE username=#{username}
+    </select>
+
+
+
+
     <!--在商品表中插入图片路径-->
     <!--<insert id="upateImage"  parameterType="String">-->
         <!--INSERT  INTO  pro_info(img_urls) VALUES #{imgUrl}-->
@@ -63,9 +75,11 @@
 
     <!--插入商品信息表-->
     <insert id="insertPro" parameterType="map">
-        INSERT INTO pro_info(prd_name,img_urls,is_sales,prd_code,is_gifts,tp_cd,is_return,sh_date,sale_code,is_used,sup_id)
-        VALUES (#{prdName},#{imgUrl},#{isSales},#{prdCode},#{isGifts},#{prdType},#{isReturn},#{shDate},#{saleCode},#{isUsed},#{supId})
+        INSERT INTO pro_info(prd_name,prd_no,img_urls,is_sales,prd_code,is_gifts,tp_cd,is_return,sh_date,sale_code,is_used,sup_id,inst_data,inst_id,mdf_date)
+        VALUES (#{prdName},#{prdNo}, #{imgUrl},#{isSales},#{prdCode},#{isGifts},#{prdType},#{isReturn},#{shDate},#{saleCode},#{isUsed},#{supId},#{instDate},#{instId},#{mdfDate})
     </insert>
+
+
 
     <select id="findPros" resultType="java.util.Map">
         select
