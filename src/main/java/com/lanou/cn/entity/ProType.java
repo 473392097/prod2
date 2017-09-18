@@ -78,7 +78,7 @@ public class ProType {
 
     @Override
     public String toString() {
-        return "ProType{" +
+        return "ProTypeMapper{" +
                 "id=" + id +
                 ", tpCd='" + tpCd + '\'' +
                 ", tpName='" + tpName + '\'' +

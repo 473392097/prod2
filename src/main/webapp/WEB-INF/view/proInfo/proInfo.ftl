@@ -133,21 +133,7 @@
 
         //监听提交
         form.on('submit(userInfoForm)', function(params){
-
-
-            //表单数据
-            /* var username = $("#username").val();
-             var password = $("#password").val();
-             var gender = $("input[name='gender']:checked").val();
-             var organization = $("#organization").val();*/
-
-            //等同于上面注释掉的部分
             var data = $("form").serializeArray();
-
-
-            // 封装之后的格式
-            //var data = {"username":username,"password":password}
-
             $.ajax({
                 type: "POST",
                 url: "/prd/updateProInfo.do",  //后台程序地址
