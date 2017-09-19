@@ -178,7 +178,6 @@
         // 个人信息弹出窗
         $(".mybutton").on("click",function(){
             var id =this.value
-            alert(id)
             layer.open({
                 title: '详情 - 惠买ivalue管理系统'
                 ,area: ['500px', '400px']
