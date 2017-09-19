@@ -87,7 +87,7 @@
         var laydate = layui.laydate;
 
         var is_used="${supplier.is_used}"
-        alert(is_used)
+
         if(is_used == 'y') {
             $("#isUsed").find("option[value = 'y']").attr("selected","selected");
         } else if(is_used == 'n') {

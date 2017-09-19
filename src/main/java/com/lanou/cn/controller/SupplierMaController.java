@@ -67,6 +67,8 @@ public class SupplierMaController {
         System.out.println( params.get("id"));
 
         Map<String,Object> map = new HashMap<>();
+        supMaService.updateSup(params);
+//        return "redirect:/sup/getSupList";
 
         try {
             supMaService.updateSup(params);

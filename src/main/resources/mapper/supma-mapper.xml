@@ -51,7 +51,7 @@
     </select>
 
     <update id="updateSup" parameterType="map">
-        UPDATE supplier set sup_name=#{supName},sup_comp =#{supComp}, is_used=#{isUsed}  sup_addr =#{supAddr} ,sup_level=#{supLevel}
+        UPDATE supplier set sup_name=#{supName},sup_comp =#{supComp}, is_used=#{isUsed} , sup_addr =#{supAddr} ,sup_level=#{supLevel}
         WHERE  id =#{id}
     </update>
 
