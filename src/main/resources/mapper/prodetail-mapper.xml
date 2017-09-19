@@ -91,7 +91,7 @@
                 VALUES (#{prd_id},#{prd_dtl_id},#{prd_dtl_name},#{source_price},#{sale_price},#{is_used})
             </otherwise>
         </choose>
-        
+
     </select>
 
     <select id="insert2" parameterType="map">
@@ -106,6 +106,8 @@
             ware.w_name
         FROM prodetail_ware_relation AS a, ware
         WHERE prd_dtl_no = #{id} AND a.w_no = ware.w_no
+
+
     </select>
 
     <select id="updateRelation" parameterType="map">

@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.lanou.cn.mapper.ProDetailMapper;
 import com.lanou.cn.service.ProDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,12 +14,14 @@ import java.util.List;
 import java.util.Map;
 @Service
 @Transactional
+//@CacheConfig(cacheNames = "proDetail")
 public class ProDetailServiceImpl implements ProDetailService {
     @Autowired
     private ProDetailMapper mapper;
 
 
     @Override
+//    @Cacheable("getAllDetail")
     public PageInfo<Map<String, Object>> getAllDetail(Map<String,Object> params) {
         Integer currentPage = params.get("currentPage") == null ? 1:Integer.parseInt((String)params.get("currentPage"));
 
@@ -64,7 +68,13 @@ public class ProDetailServiceImpl implements ProDetailService {
 
     @Override
     public void insertRelation(Map<String, Object> map) {
-        mapper.insertRelation(map);
+        int num=mapper.selectBywno(map);
+        System.out.println(num+"ssadfgdsag=====");
+        if (num<=0){
+            mapper.insertRelation(map);
+        }else {
+            mapper.updateBywno(map);
+        }
     }
 
 
