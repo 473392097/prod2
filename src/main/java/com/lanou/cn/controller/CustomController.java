@@ -9,6 +9,6 @@ public class CustomController {
 
     @RequestMapping("showCst")
     public String showCst(){
-        return "/cst/cstList";
+        return "/cstservice/cstList";
     }
 }

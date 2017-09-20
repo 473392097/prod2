@@ -54,7 +54,7 @@
 </form>
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>菜单管理</legend>
+    <legend>客服系统</legend>
 </fieldset>
 
 <div class="layui-form">
