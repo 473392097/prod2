@@ -6,37 +6,60 @@
 </head>
 <body>
 <fieldset class="layui-elem-field">
-    <legend>商品明细修改</legend>
+    <legend>创建订单</legend>
     <div class="layui-field-box">
         <form class="layui-form">
             <!-- id作为隐藏域 明细编号-->
-            <input  name="prd_dtl_id" value="${onedetail.prd_dtl_id}">
+            <input  name="prd_dtl_id" value="">
+            <label class="layui-form-label">收件人</label>
+            <div class="layui-input-block">
+                <input type="text" id="name" name="prd_dtl_name"  required
+                       lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label">收件地址</label>
+            <div class="layui-input-block">
+                <input type="text" id="name" name="prd_dtl_name" required
+                       lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">明细名称</label>
+                <label class="layui-form-label">商品名称</label>
                 <div class="layui-input-block">
-                    <input type="text" id="name" name="prd_dtl_name" value="${onedetail.prd_dtl_name! ''}" required
+                    <input type="text" id="name" name="prd_dtl_name" value="" required
+                           lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+                <label class="layui-form-label">商品数量</label>
+                <div class="layui-input-block">
+                    <input type="text" id="name" name="prd_dtl_name" value="" required
+                           lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">总金额</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="url" name="img_url" value="" required
+                           lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class=""
+            <div class="layui-form-item">
+                <label class="layui-form-label">代金券</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="url" name="sale_price" value="" required
                            lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">图片</label>
+                <label class="layui-form-label">实际支付</label>
                 <div class="layui-input-inline">
                     <input type="text" id="url" name="img_url" value="${onedetail.img_url! ''}" required
                            lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">销售价格</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="url" name="sale_price" value="${onedetail.sale_price! ''}" required
-                           lay-verify="required" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="updateProDetail">立即提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <button class="layui-btn" lay-submit lay-filter="updateProDetail">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">取消</button>
                 </div>
             </div>
         </form>
