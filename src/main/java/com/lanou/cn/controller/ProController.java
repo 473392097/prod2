@@ -1,15 +1,14 @@
 package com.lanou.cn.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.lanou.cn.entity.ProType;
 import com.lanou.cn.mapper.ProDetailMapper;
 import com.lanou.cn.service.impl.ProInfoServiceImpl;
-
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -109,10 +108,10 @@ public class ProController {
         if (!file.isEmpty()) {
             try {
                 // 文件保存路径
-                String str="/avatar/"+file.getOriginalFilename();
+                String str="http://10.90.110.187:8888/resources/images/dtl/"+file.getOriginalFilename();
                 request.getSession().setAttribute("str",str);
                 //图像的绝对路径
-                String filePath = request.getSession().getServletContext().getRealPath("/") + "avatar/" + file.getOriginalFilename();
+                String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/images/dtl/" + file.getOriginalFilename();
                 result.put("filepath",filePath);
                 // 把接收到的file直接存到硬盘       转存文件
                 file.transferTo(new File(filePath));
