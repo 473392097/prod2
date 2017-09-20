@@ -19,11 +19,11 @@
     <div class="layui-form-item">
         <label class="layui-form-label">菜单名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="name" value="${params.name!''}" autocomplete="off" class="layui-input">
+            <input type="text" name="name" value="" autocomplete="off" class="layui-input">
         </div>
         <label class="layui-form-label">菜单链接</label>
         <div class="layui-input-inline">
-            <input type="text" name="url"  value="${params.url!''}" autocomplete="off" class="layui-input">
+            <input type="text" name="url"  value="" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -79,34 +79,30 @@
         </tr>
         </thead>
         <tbody>
-            <#list list as item>
+            <#--<#list list as item>-->
             <tr>
-                <td>${item.id}</td>
+                <td></td>
                 <td>
-                    <#if item.pId==0>一级菜单
-                    <#else>二级菜单
-                    </#if>
+
                 </td>
                 <td>
-                ${item.name}
+
                 </td>
-                <td>${item.url}</td>
+                <td></td>
                 <td>
-                    <#if item.isUsed=='y'>使用
-                    <#else>禁用
-                    </#if>
+
                 </td>
                 <td>
                     <#--<a class="manageMenu" val="${item.id}">管理菜单</a>-->
-                    <button val="${item.id}" class="manageMenu layui-btn layui-btn-normal layui-btn-small"><i class="layui-icon"></i></button>
+                    <button  class="manageMenu layui-btn layui-btn-normal layui-btn-small"><i class="layui-icon"></i></button>
                 </td>
             </tr>
-            </#list>
+            <#--</#list>-->
         </tbody>
     </table>
 </div>
 <div class="layui-form">
-    <span id="form_page"></span>&nbsp;共${page.total}条数据
+    <span id="form_page"></span>&nbsp;共条数据
 </div>
 <script type="text/javascript" src="/resources/layui/layui.js"></script>
 <script type="text/javascript">
@@ -117,9 +113,9 @@
         var laypage = layui.laypage;
         var $ = layui.jquery;
 
-        var pindex = "${page.pageNum}";// 当前页
-        var ptotalpages = "${page.pages}";// 总页数
-        var pcount = "${page.total}";// 数据总数
+        <#--var pindex = "${page.pageNum}";// 当前页-->
+        <#--var ptotalpages = "${page.pages}";// 总页数-->
+        <#--var pcount = "${page.total}";// 数据总数-->
 
         // 分页
         laypage({
@@ -150,9 +146,9 @@
         });
 
         //带回页面的select参数进行动态赋值
-        var pId = "${params.pId!''}";
+        var pId = "";
 
-        var isUsed= "${params.isUsed!''}";
+        var isUsed= "";
 
         // 菜单级别动态赋值
         if(pId == '0') {
