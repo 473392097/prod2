@@ -6,10 +6,10 @@ import com.lanou.cn.service.ProDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,15 +27,40 @@ public class ProDetailController {
     @Autowired
     private ProDetailMapper mapper;
 
+    //查询商品明细表
     @RequestMapping("getAll")
     public ModelAndView getAll(@RequestParam Map<String,Object> param){
+        System.out.println("进去呀了");
+        System.out.println("接受的参数:"+param);
         System.out.println("接受的参数:"+param);
         ModelAndView modelAndView = new ModelAndView();
         // 后期需要优化
-        PageInfo<Map<String, Object>> pageInfo = service.getAllDetail(param);
-        modelAndView.addObject("page",pageInfo);
+
+        RestTemplate restTemplate=new RestTemplate();
+        MultiValueMap<String,Object> bodyMap=new LinkedMultiValueMap<>();
+
+        bodyMap.add("currentPage",null == param.get("currentPage")?"1" : param.get("currentPage"));
+        bodyMap.add("size",5);
+        bodyMap.add("prd_dtl_name",param.get("prd_dtl_name"));
+        bodyMap.add("price_min",param.get("price_min"));
+        bodyMap.add("price_max",param.get("price_max"));
+        bodyMap.add("count_min",param.get("count_min"));
+        bodyMap.add("count_max",param.get("count_max"));
+        bodyMap.add("is_used",param.get("is_used"));
+        System.out.println("uhghh"+restTemplate.postForObject("http://localhost:8888/prd/getAll", bodyMap, Map.class));
+        Map<String,Object> result1 =restTemplate.postForObject("http://localhost:8888/prd/getAll", bodyMap, Map.class);
+        System.out.println(result1.get("pages"));
+        System.out.println(result1.get("list"));
+        System.out.println("找到了");
+        modelAndView.addObject("list",result1.get("list"));
+        modelAndView.addObject("page",result1);
         modelAndView.addObject("param",param);
-        modelAndView.addObject("list",pageInfo.getList());
+
+
+//        PageInfo<Map<String, Object>> pageInfo = service.getAllDetail(param);
+//        modelAndView.addObject("page",pageInfo);
+//        modelAndView.addObject("param",param);
+//        modelAndView.addObject("list",pageInfo.getList());
         modelAndView.setViewName("/proInfo/proDetailList");
         return modelAndView;
 
@@ -90,11 +115,15 @@ public class ProDetailController {
 
     //查看该明细下所有的仓库对应信息
     @RequestMapping("getDetailInfo")
+    @ResponseBody
     public ModelAndView getDetailInfo(int id){
         System.out.println("shangpng明细id"+id);
         ModelAndView modelAndView = new ModelAndView("/proInfo/proDetailInfo");
-        System.out.println(service.getproDetailInfo(id));
-        modelAndView.addObject("proDetailInfo",service.getproDetailInfo(id));
+        RestTemplate restTemplate=new RestTemplate();
+        MultiValueMap<String,Object> bodyMap=new LinkedMultiValueMap<>();
+        bodyMap.add("id",id);
+        List<Map<String,Object>> result = restTemplate.postForObject("http://localhost:8888/prd/getDetailInfo", bodyMap, List.class);
+        modelAndView.addObject("proDetailInfo",result);
         return modelAndView;
     }
 
