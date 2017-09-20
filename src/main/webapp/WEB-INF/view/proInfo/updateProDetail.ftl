@@ -10,7 +10,7 @@
     <div class="layui-field-box">
         <form class="layui-form">
             <!-- id作为隐藏域 明细编号-->
-            <#--<input  name="prd_dtl_id" value="${onedetail.prd_dtl_id}">-->
+            <input  name="prd_dtl_id" value="${onedetail.prd_dtl_id}">
             <div class="layui-form-item">
                 <label class="layui-form-label">明细名称</label>
                 <div class="layui-input-block">

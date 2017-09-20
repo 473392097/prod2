@@ -2,6 +2,8 @@ package com.lanou.cn.mapper;
 
 import com.lanou.cn.entity.ProDetail;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 import java.util.Map;
@@ -35,5 +37,17 @@ public interface ProDetailMapper {
 
     void updateRelation(Map<String,Object> map);
 
-    void insertRelation(Map<String,Object> map);
+    /**
+     * 插入明细-仓库对应关系时需要判断该明细在该仓库是否已经存在 若存在则更新该明细在该仓库下的数量
+     * 不会存在插入两个相同仓库 相同明细id的记录
+     * ###################################################################################################
+     */
+    void insertRelation(Map<String, Object> map);
+    @Select("select COUNT(*) from prodetail_ware_relation where w_no=#{w_no} and prd_dtl_no=#{prd_dtl_id}" )
+    int selectBywno(Map<String, Object> map);
+    @Select("update prodetail_ware_relation set w_count=w_count+#{w_count} where w_no=#{w_no} and prd_dtl_no=#{prd_dtl_id}")
+    void updateBywno(Map<String, Object> map);
+    /**
+     * ###################################################################################################
+     */
 }

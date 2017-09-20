@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.lanou.cn.mapper.ProDetailMapper;
 import com.lanou.cn.service.ProDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
