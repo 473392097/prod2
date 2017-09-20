@@ -157,10 +157,10 @@ public class ProDetailController {
         if (!file.isEmpty()) {
             try {
                 // 文件保存路径
-                String str="/avatar/"+file.getOriginalFilename();
+                String str="/resources/images/dtl/"+file.getOriginalFilename();
                 request.getSession().setAttribute("str",str);
                 //图像的绝对路径
-                String filePath = request.getSession().getServletContext().getRealPath("/") + "avatar/" + file.getOriginalFilename();
+                String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/images/dtl/" + file.getOriginalFilename();
                 result.put("filepath",filePath);
                 // 把接收到的file直接存到硬盘       转存文件
                 file.transferTo(new File(filePath));
