@@ -19,18 +19,28 @@ public class ArtificialBeforeController {
      * @return
      */
     @RequestMapping("showCst")
-    public ModelAndView showCst(@RequestParam Map<String,Object> param,String[] prd_dtl_id,@RequestParam(value="userid",required=false)String userid,String[] num){
+    public ModelAndView showCst(String[] prd_dtl_id,@RequestParam(value="userid",required=false)String userid,String[] num){
         ModelAndView modelAndView=new ModelAndView("/artificial/cstList");
-        Map<String,Object> result=new HashMap<>();
+
         System.out.println(Arrays.toString(prd_dtl_id));
         System.out.println("userid:"+userid);
         System.out.println("num:"+Arrays.toString(num));
-        result.put("param",param);
-        //调用查询客户信息的接口,返回的信息放到map中
-        //result.put(userinfo,);
-        modelAndView.addObject("ace",result);
+        //result.put("param",param);
+        //------------调用客户消费记录的接口------------------------------BEGIN
 
-        //调用生成订单的接口
+
+
+        //------------调用客户消费记录的接口--------------------------------END
+
+        //-----------调用查询客户信息的接口,返回的信息放到map中-------------BEGIN
+
+
+
+        //-----------调用查询客户信息的接口,返回的信息放到map中---------------END
+
+
+
+        //--------------拼接参数调用生成订单的接口-------------------------BEGIN
         String uid=userid;
         List<String> list = new ArrayList<String>();
         if (num!=null){
@@ -40,17 +50,28 @@ public class ArtificialBeforeController {
                 }
             }
         }
-
         System.out.println(list);
+        Map<String,Object> params=new HashMap<>();
+        List<Map<String,Object>> params3=new ArrayList<>();
+        params.put("userid",userid);
+        if (num!=null){
+            for (int i = 0; i <prd_dtl_id.length ; i++) {
+
+                Map<String,Object> map=new HashMap<>();
+                map.put("prd_dtl_id",prd_dtl_id[i]);
+                map.put("count",list.get(i));
+                params3.add(map);
+            } params.put("orderd",params3);
+        }
 
 
-
-
+        System.out.println(params);
+        //--------------拼接参数调用生成订单的接口----------------END
         RestTemplate restTemplate=new RestTemplate();
         MultiValueMap<String,Object> bodyMap=new LinkedMultiValueMap<>();
         bodyMap.add("prd_id",100);
-        Map<String,Object> result2 = restTemplate.postForObject("http://localhost:8888/prd/getAllDetail", bodyMap, Map.class);
-        System.out.println(result2.get("result"));
+        Map<String,Object> result2 = restTemplate.postForObject("http://10.90.86.231:8888/prd/getAllDetail", bodyMap, Map.class);
+        //System.out.println(result2.get("result"));
         modelAndView.addObject("prduct",result2.get("result"));
 
         return modelAndView;

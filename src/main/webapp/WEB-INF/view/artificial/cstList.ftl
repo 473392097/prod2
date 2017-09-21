@@ -153,7 +153,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <input hidden type="text" value="10001" name="userid">
+
                         <tr>
                             <td>10001</td>
                             <td>wjhhh</td>
