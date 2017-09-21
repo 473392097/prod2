@@ -26,7 +26,7 @@ public class ProController {
 
     private static final String LOGIN_INFO = "imgUrl";
 
-    //商品信息实现层类
+    //商品信息实现层类123
     @Resource
     private ProInfoServiceImpl proInfoService;
     @Autowired
