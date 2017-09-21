@@ -13,7 +13,7 @@
 
 <body>
 
-<form id="pageSubmit" class="layui-form">
+<form id="pageSubmit" class="layui-form" >
 
 
     <#--<div class="layui-form-item">-->

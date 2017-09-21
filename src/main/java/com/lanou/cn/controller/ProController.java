@@ -26,20 +26,20 @@ public class ProController {
 
     private static final String LOGIN_INFO = "imgUrl";
 
-//    商品信息实现层类
+    //商品信息实现层类
     @Resource
     private ProInfoServiceImpl proInfoService;
     @Autowired
     private ProDetailMapper mapper;
 
-//跳转到前端添加商品页面
+    //跳转到前端添加商品页面
     @RequestMapping("addProduct")
     public String addProduct(){
         return "proInfo/addPro";
     }
 
 
-//查询商品类别,返回集合对象
+    //查询商品类别,返回集合对象
     @ModelAttribute("proType")
     public List<Map<String,Object>> proType(){
         System.out.println("进去了");
