@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lanou.cn.mapper.SupMaMapper">
+
+
+    <select id="find"  resultType="java.util.HashMap" parameterType="map" >
+        select
+        id
+        ,sup_name
+        ,sup_comp
+        ,sup_addr
+        ,sup_level
+        ,cp_relation
+        from
+        supplier
+        where 1=1
+        <if test="null != id and '' != id">
+            and id = #{id}
+        </if>
+
+
+        <if test="null != supName and '' != supName">
+            and sup_name =#{supName}
+        </if>
+
+        <if test="null != supComp and '' != supComp">
+            and sup_comp =#{supComp}
+        </if>
+
+        <if test="null != supAddr and '' != supAddr">
+            and sup_addr = #{supAddr}
+        </if>
+
+        <!--<if test="null != sup_level and '' != sup_level">-->
+            <!--and sup_level = #{url}-->
+        <!--</if>-->
+
+        <!--<if test="null != cp_relation and '' != cp_relation">-->
+            <!--and cp_relation = #{is_used}-->
+        <!--</if>-->
+
+        order by id asc
+    </select>
+
+    <!--根据id查询-->
+    <select id="selectTan" resultType="map" parameterType="int">
+        select * from supplier where id = #{id}
+    </select>
+
+    <update id="updateSup" parameterType="map">
+        UPDATE supplier set sup_name=#{supName},sup_comp =#{supComp}, is_used=#{isUsed} , sup_addr =#{supAddr} ,sup_level=#{supLevel}
+        WHERE  id =#{id}
+    </update>
+
+
+</mapper>

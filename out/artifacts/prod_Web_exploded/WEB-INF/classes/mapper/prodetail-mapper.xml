@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanou.cn.mapper.ProDetailMapper">
+
+
+    <select id="getAllDetail" parameterType="map" resultType="map">
+        select b.*,c.*,pro_info.prd_name
+        from prd_detail AS b
+        LEFT JOIN (select a.prd_dtl_no,a.prd_no,SUM(a.w_count) as totalcount from prodetail_ware_relation as a GROUP BY
+        prd_dtl_no,a.prd_no) as c ON c.prd_dtl_no=b.prd_dtl_id
+        LEFT JOIN pro_info ON b.prd_id=pro_info.prd_no
+        WHERE 1=1
+        <if test="null != prd_name and '' != prd_name">
+            and prd_name = #{prd_name}
+        </if>
+        <if test="null != prd_dtl_name and '' != prd_dtl_name">
+            and prd_dtl_name = #{prd_dtl_name}
+        </if>
+
+        <if test="null != price_min and '' != price_min">
+            and sale_price <![CDATA[ >= ]]> #{price_min}
+        </if>
+        <if test="null != price_max and '' != price_max">
+            and sale_price <![CDATA[ <= ]]> #{price_max}
+        </if>
+        <!--<if test="null != w_name and '' != w_name">-->
+        <!--and w_name = #{w_name}-->
+        <!--</if>-->
+        <!--<if test="null != count_min and '' != count_min">-->
+        <!--and w_count <![CDATA[ >= ]]> #{count_min}-->
+        <!--</if>-->
+        <!--<if test="null != count_max and '' != count_max">-->
+        <!--and w_count <![CDATA[ <= ]]> #{count_max}-->
+        <!--</if>-->
+        <choose>
+            <when test="null != is_used and '' != is_used">
+                <choose>
+
+                    <when test='is_used=="n"'>
+                        and b.is_used = 'n'
+                    </when>
+                    <otherwise>and b.is_used = 'y'</otherwise>
+                </choose>
+            </when>
+            <otherwise>and b.is_used = 'y'</otherwise>
+
+        </choose>
+
+        <!--<if test="null != is_used and '' != is_used">-->
+        <!--and pwr.is_used = #{is_used}-->
+        <!--</if>-->
+
+        order by b.prd_id
+
+
+    </select>
+
+
+    <select id="getOneDetail" parameterType="int" resultType="map">
+        SELECT pd.*
+        FROM
+            prd_detail AS pd
+        WHERE
+            pd.prd_dtl_id = #{id}
+
+
+    </select>
+
+    <update id="update" parameterType="map">
+        UPDATE
+            prd_detail AS a
+        SET
+            a.prd_dtl_name = #{prd_dtl_name}
+            , a.img_url    = #{img_url}, a.sale_price = #{sale_price}
+        WHERE
+            a.prd_dtl_id = #{prd_dtl_id}
+
+
+    </update>
+
+    <select id="insert" parameterType="map">
+        <choose>
+            <when test="null != img_url and '' != img_url">
+                INSERT INTO
+                prd_detail(prd_id,prd_dtl_id,prd_dtl_name,source_price,sale_price,is_used,img_url)
+                VALUES (#{prd_id},#{prd_dtl_id},#{prd_dtl_name},#{source_price},#{sale_price},#{is_used},#{img_url})
+            </when>
+            <otherwise>
+                INSERT INTO
+                prd_detail(prd_id,prd_dtl_id,prd_dtl_name,source_price,sale_price,is_used)
+                VALUES (#{prd_id},#{prd_dtl_id},#{prd_dtl_name},#{source_price},#{sale_price},#{is_used})
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="insert2" parameterType="map">
+        INSERT INTO
+            prodetail_ware_relation (prd_no, prd_dtl_no, w_no, w_count, is_used)
+        VALUES (#{prd_id}, #{prd_dtl_id}, #{w_no}, #{w_count}, #{is_used})
+    </select>
+
+    <select id="getproDetailInfo" parameterType="int" resultType="map">
+        SELECT
+            a.*,
+            ware.w_name
+        FROM prodetail_ware_relation AS a, ware
+        WHERE prd_dtl_no = #{id} AND a.w_no = ware.w_no
+
+
+    </select>
+
+    <select id="updateRelation" parameterType="map">
+        UPDATE prodetail_ware_relation
+        SET w_count = #{w_count}
+        WHERE w_no = #{w_no}
+              AND prd_dtl_no = #{prd_dtl_no}
+    </select>
+
+    <select id="insertRelation" parameterType="map">
+        INSERT INTO prodetail_ware_relation (prd_no, prd_dtl_no, w_no, w_count, is_used)
+        VALUES (#{prd_id}, #{prd_dtl_id}, #{w_no}, #{w_count}, #{is_used})
+    </select>
+</mapper>

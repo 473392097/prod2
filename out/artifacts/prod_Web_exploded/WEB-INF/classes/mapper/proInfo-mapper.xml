@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lanou.cn.mapper.ProInfoMapper">
+
+    <select id="getProInfo"  resultType="map" parameterType="String"  >
+        select
+        p1.id as id	,
+        p1.prd_no	as prdNo,
+        p1.prd_name as prdName,
+        p1.prd_code as prdCode,
+        p1.tp_cd	as prdType,
+        p1.sup_id	as supId,
+        p1.sh_date	as shDate,
+        p1.img_urls as imgUrl,
+        p1.is_gifts as isGifts,
+        p1.is_sales as isSales,
+        p1.sale_code as saleCode,
+        p1.is_return as isReturn,
+        p1.is_used	 as isUsed,
+        p1.inst_data as instDate,
+        p1.inst_id	 as instId,
+        p1.mdf_date as mdfDate,
+        p1.mdf_id	 as mdfId,
+        p2.tp_name as tpName,
+        s.sup_name as supName,
+        s.sup_comp as supComp
+        from
+        pro_info p1
+
+        left JOIN
+        prd_type p2
+        on p2.tp_cd = p1.tp_cd
+        LEFT join supplier s
+        on s.id = p1.sup_id
+        WHERE 1=1
+        <if test="null != prdNo and '' != prdNo">
+            and p1.prd_no = #{prdNo}
+        </if>
+    </select>
+
+    <!--查询商品类别表-->
+    <select id="selectPrdType"  resultType="map"  >
+        SELECT * FROM prd_type
+    </select>
+
+<!--查询供应商表-->
+    <select id="supplier"  resultType="map"  >
+        SELECT * FROM supplier
+    </select>
+
+    <!--查询商品表-->
+    <select id="proInfo"  resultType="map"  >
+        SELECT * FROM pro_info
+    </select>
+
+
+
+
+
+    <!--查询用户表,获取用户的id-->
+    <select id="selectUserId" parameterType="String"  resultType="int">
+        SELECT id from users WHERE username=#{username}
+    </select>
+
+
+
+
+    <!--在商品表中插入图片路径-->
+    <!--<insert id="upateImage"  parameterType="String">-->
+        <!--INSERT  INTO  pro_info(img_urls) VALUES #{imgUrl}-->
+    <!--</insert>-->
+
+    <!--插入商品信息表-->
+    <insert id="insertPro" parameterType="map">
+        INSERT INTO pro_info(prd_name,prd_no,img_urls,is_sales,prd_code,is_gifts,tp_cd,is_return,sh_date,sale_code,is_used,sup_id,inst_data,inst_id,mdf_date)
+        VALUES (#{prdName},#{prdNo}, #{imgUrl},#{isSales},#{prdCode},#{isGifts},#{prdType},#{isReturn},#{shDate},#{saleCode},#{isUsed},#{supId},#{instDate},#{instId},#{mdfDate})
+    </insert>
+
+
+
+    <select id="findPros" resultType="java.util.Map">
+        select
+        p1.id	,
+        p1.prd_no	as prdNo,
+        p1.prd_name as prdName,
+        p1.prd_code as prdCode,
+        p1.tp_cd	as prdType,
+        p1.sup_id	as supId,
+        p1.sh_date	as shDate,
+        p1.img_urls as imgUrl,
+        p1.is_gifts as isGifts,
+        p1.is_sales as isSales,
+        p1.sale_code as saleCode,
+        p1.is_return as isReturn,
+        p1.is_used	 as isUsed,
+        p1.inst_data as instDate,
+        p1.inst_id	 as instId,
+        p1.mdf_date as mdfDate,
+        p1.mdf_id	 as mdfId,
+        p2.tp_name as tpName,
+        s.sup_name as supName,
+        s.sup_comp as supComp
+        from
+        pro_info p1
+
+        left JOIN
+        prd_type p2
+        on p2.tp_cd = p1.tp_cd
+        LEFT join supplier s
+        on s.id = p1.sup_id
+        WHERE 1=1
+        <if test="null != prdNo and '' != prdNo">
+            and p1.prd_no LIKE concat('%',#{prdNo},'%')
+        </if>
+
+        <if test="null != prdName and '' != prdName">
+            and p1.prd_name LIKE concat('%',#{prdName},'%')
+        </if>
+        <if test="null != prdCode and '' != prdCode">
+            and p1.prd_code LIKE concat('%',#{prdCode},'%')
+        </if>
+
+        <if test="null != isSales and '' !=isSales ">
+            and p1.is_sales = #{isSales}
+        </if>
+        <if test="null != isReturn and '' !=isReturn ">
+            and p1.is_return = #{isReturn}
+        </if>
+        <if test="null != prdType and '' != prdType">
+            and p2.tp_cd = #{prdType}
+        </if>
+        <if test="null != instDate1 and '' != instDate1 ">
+            and p1.inst_data <![CDATA[ >= ]]> #{instDate1}
+        </if>
+        <if test="null != instDate2 and '' != instDate2 ">
+            and p1.inst_data <![CDATA[ <= ]]> #{instDate1 }
+        </if>
+        <if test="null != saleCode  and '' !=saleCode ">
+            and p1.sale_code = #{saleCode}
+        </if>
+        <if test="null != isUsed and '' !=isUsed ">
+            and p1.is_used = #{isUsed}
+        </if>
+        <if test="null != supId and '' != supId">
+            and s.id = #{supId}
+        </if>
+        <if test="null != isGifts and '' != isGifts">
+            and p1.is_gifts = #{isGifts}
+        </if>
+
+        order by id asc
+
+    </select>
+
+
+
+
+
+</mapper>

@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequestMapping("cst")
 @Controller
@@ -22,10 +19,10 @@ public class ArtificialBeforeController {
      * @return
      */
     @RequestMapping("showCst")
-    public ModelAndView showCst(@RequestParam Map<String,Object> param,String[] abc,@RequestParam(value="userid",required=false)String userid,String[] num){
+    public ModelAndView showCst(@RequestParam Map<String,Object> param,String[] prd_dtl_id,@RequestParam(value="userid",required=false)String userid,String[] num){
         ModelAndView modelAndView=new ModelAndView("/artificial/cstList");
         Map<String,Object> result=new HashMap<>();
-        System.out.println(Arrays.toString(abc));
+        System.out.println(Arrays.toString(prd_dtl_id));
         System.out.println("userid:"+userid);
         System.out.println("num:"+Arrays.toString(num));
         result.put("param",param);
@@ -33,6 +30,18 @@ public class ArtificialBeforeController {
         //result.put(userinfo,);
         modelAndView.addObject("ace",result);
 
+        //调用生成订单的接口
+        String uid=userid;
+        List<String> list = new ArrayList<String>();
+        if (num!=null){
+            for (int i = 0; i < num.length; i++) {
+                if (num[i] != null && !num[i].equals("")){
+                    list.add(num[i]);
+                }
+            }
+        }
+
+        System.out.println(list);
 
 
 
