@@ -65,47 +65,47 @@
                         <input hidden type="text" value="10001" name="userid">
                         <tr>
                             <td>会员编号</td>
-                            <td>10001</td>
+                            <td>${userInfo.data.vipNO}</td>
                             <td></td>
                             <td>会员账号</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.vipAccount}</td>
                         </tr>
 
                         <tr>
-                            <td>会员账号</td>
-                            <td>wjhhh</td>
+                            <td>银行卡号</td>
+                            <td>${userInfo.data.idCard}</td>
                             <td></td>
                             <td>会员类型</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.vipType}</td>
                         </tr>
 
                         <tr>
                             <td>会员生日</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.birthday}</td>
                             <td></td>
                             <td>消费金额</td>
                             <td>wjhhh</td>
                         </tr>
                         <tr>
                             <td>真实姓名</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.realName}</td>
                             <td></td>
                             <td>注册日期</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.regDate}</td>
                         </tr><tr>
 
                         </tr>
                         <tr>
                             <td>账户积分</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.accPoint}</td>
                             <td></td>
                             <td>会员等级</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.vipLevel}</td>
                         </tr>
 
                         <tr>
                             <td>邮箱</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.email}</td>
                             <td></td>
                             <td>主收货地址ID</td>
                             <td>wjhhh</td>
@@ -113,10 +113,10 @@
 
                         <tr>
                             <td>电话一</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.phoneNO1}</td>
                             <td></td>
                             <td>电话二</td>
-                            <td>wjhhh</td>
+                            <td>${userInfo.data.phoneNO2! ''}</td>
                         </tr>
 
 
@@ -146,26 +146,26 @@
                             <th>银行名称</th>
                             <th>开户行</th>
                             <th>是否可用</th>
-                            <th>创建人</th>
+
                             <th>创建时间</th>
-                            <th>修改人</th>
-                            <th>修改时间</th>
+
                         </tr>
                         </thead>
                         <tbody>
 
+                        <#list list as item>
                         <tr>
-                            <td>10001</td>
-                            <td>wjhhh</td>
-                            <td>35434534</td>
-                            <td>中国建设很行</td>
-                            <td>郑州</td>
-                            <td>可用</td>
-                            <td>王军会</td>
-                            <td>2017</td>
-                            <td>王军会</td>
-                            <td>2017</td>
+                            <td>${userInfo.data.vipNO}</td>
+                            <td>${userInfo.data.vipAccount}</td>
+                            <td>${userInfo.data.idCard}</td>
+                            <td>${item.bankName}</td>
+                            <td>${item.bankAddr}</td>
+                            <td>${item.isUsed}</td>
+
+                            <td>${item.mdfDate}</td>
+
                         </tr>
+                        </#list>
 
 
 

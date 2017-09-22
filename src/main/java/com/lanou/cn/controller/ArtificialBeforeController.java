@@ -21,7 +21,7 @@ public class ArtificialBeforeController {
     @RequestMapping("showCst")
     public ModelAndView showCst(String[] prd_dtl_id,@RequestParam(value="userid",required=false)String userid,String[] num){
         ModelAndView modelAndView=new ModelAndView("/artificial/cstList");
-
+        RestTemplate restTemplate=new RestTemplate();
         System.out.println(Arrays.toString(prd_dtl_id));
         System.out.println("userid:"+userid);
         System.out.println("num:"+Arrays.toString(num));
@@ -34,6 +34,18 @@ public class ArtificialBeforeController {
 
         //-----------调用查询客户信息的接口,返回的信息放到map中-------------BEGIN
 
+        MultiValueMap<String,Object> bodyMap=new LinkedMultiValueMap<>();
+        bodyMap.add("vipNo","vip201709171213560");
+        System.out.println("调用方法之前");
+        Map<String,Object> result2 = restTemplate.postForObject("http://10.90.86.250:8070/rest/userInfo.do", bodyMap, Map.class);
+        System.out.println("调用方法之后");
+        System.out.println(result2);
+        modelAndView.addObject("userInfo",result2);
+
+
+        Map<String,Object> result3 = restTemplate.postForObject("http://10.90.86.250:8070/rest/bankAccount.do", bodyMap, Map.class);
+        System.out.println(result3.get("data"));
+        modelAndView.addObject("list",result3.get("data"));
 
 
         //-----------调用查询客户信息的接口,返回的信息放到map中---------------END
@@ -67,12 +79,12 @@ public class ArtificialBeforeController {
 
         System.out.println(params);
         //--------------拼接参数调用生成订单的接口----------------END
-        RestTemplate restTemplate=new RestTemplate();
-        MultiValueMap<String,Object> bodyMap=new LinkedMultiValueMap<>();
-        bodyMap.add("prd_id",100);
-        Map<String,Object> result2 = restTemplate.postForObject("http://10.90.86.231:8888/prd/getAllDetail", bodyMap, Map.class);
-        //System.out.println(result2.get("result"));
-        modelAndView.addObject("prduct",result2.get("result"));
+
+        MultiValueMap<String,Object> bodyMap2=new LinkedMultiValueMap<>();
+        bodyMap2.add("prd_id",100);
+        Map<String,Object> result = restTemplate.postForObject("http://10.90.86.231:8888/prd/getAllDetail.do", bodyMap2, Map.class);
+
+        modelAndView.addObject("prduct",result.get("result"));
 
         return modelAndView;
     }

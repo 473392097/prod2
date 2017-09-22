@@ -48,8 +48,8 @@ public class ProDetailController {
         bodyMap.add("count_min",param.get("count_min"));
         bodyMap.add("count_max",param.get("count_max"));
         bodyMap.add("is_used",param.get("is_used"));
-        System.out.println("uhghh"+restTemplate.postForObject("http://localhost:8888/prd/getAll", bodyMap, Map.class));
-        Map<String,Object> result1 =restTemplate.postForObject("http://localhost:8888/prd/getAll", bodyMap, Map.class);
+        System.out.println("uhghh"+restTemplate.postForObject("http://10.90.86.249:8888/prd/getAll", bodyMap, Map.class));
+        Map<String,Object> result1 =restTemplate.postForObject("http://10.90.86.249:8888/prd/getAll", bodyMap, Map.class);
         System.out.println(result1.get("pages"));
         System.out.println(result1.get("list"));
         System.out.println("找到了");
