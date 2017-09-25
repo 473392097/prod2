@@ -136,9 +136,9 @@
 <div class="layui-form">
     <span id="form_page"></span>&nbsp;共${page.total! ''}条数据
 </div>
-<form id="pageSubmit">
-    <input type="hidden" id="currentPage" name="currentPage" >
-</form>
+<#--<form id="pageSubmit">-->
+    <#--<input type="hidden" id="currentPage" name="currentPage" >-->
+<#--</form>-->
 <script type="text/javascript" src="/resources/layui/layui.js"></script>
 <script type="text/javascript">
 
@@ -215,7 +215,10 @@
 //                }
 //            });
 //        }
+
+        form.render();
     });
+
 </script>
 </body>
 </html>

@@ -37,11 +37,13 @@ public class OrderInfoController {
         bodyMap.add("vip_no",params.get("vip_no"));
         bodyMap.add("ord_tp_cd",params.get("ord_tp_cd"));
         bodyMap.add("ord_tp_cd",params.get("ord_crt_date"));
+        bodyMap.add("date_min",params.get("date_min"));
+        bodyMap.add("date_max",params.get("date_max"));
 //        date_min
         System.out.println("最低时间"+params.get("date_min"));
         System.out.println("最晚时间"+params.get("date_max"));
-        System.out.println("uhghh"+restTemplate.postForObject("http://localhost:8080/order/getOrderInfo", bodyMap, Map.class));
-        Map<String,Object> result1 =restTemplate.postForObject("http://localhost:8080/order/getOrderInfo", bodyMap, Map.class);
+        System.out.println("uhghh"+restTemplate.postForObject("http://10.90.86.244:8080/order/getOrderInfo", bodyMap, Map.class));
+        Map<String,Object> result1 =restTemplate.postForObject("http://10.90.86.244:8080/order/getOrderInfo", bodyMap, Map.class);
         System.out.println(result1);
         System.out.println(result1.get("pages"));
         System.out.println(result1.get("list"));
