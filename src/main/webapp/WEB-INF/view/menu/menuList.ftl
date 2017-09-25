@@ -40,7 +40,7 @@
         <label class="layui-form-label">菜单级别</label>
         <div class="layui-input-inline">
             <select id="pId" name="pId" >
-                <option value="">请选择</option>
+                <option  value="">请选择</option>
                 <option value="0">一级</option>
                 <option value="1">二级</option>
             </select>

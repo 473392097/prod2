@@ -119,7 +119,6 @@
                             <td>${userInfo.data.phoneNO2! ''}</td>
                         </tr>
 
-
                         </tbody>
                     </table>
                 </div>
@@ -146,13 +145,10 @@
                             <th>银行名称</th>
                             <th>开户行</th>
                             <th>是否可用</th>
-
                             <th>创建时间</th>
-
                         </tr>
                         </thead>
                         <tbody>
-
                         <#list list as item>
                         <tr>
                             <td>${userInfo.data.vipNO}</td>
@@ -161,14 +157,9 @@
                             <td>${item.bankName}</td>
                             <td>${item.bankAddr}</td>
                             <td>${item.isUsed}</td>
-
                             <td>${item.mdfDate}</td>
-
                         </tr>
                         </#list>
-
-
-
                         </tbody>
                     </table>
                 </div>
@@ -180,7 +171,6 @@
                             <col width="100px">
                             <col width="100px">
                             <col width="50px">
-
                         </colgroup>
                         <thead>
                         <tr>
@@ -190,22 +180,16 @@
                             <th>代金券编号</th>
                             <th>使用积分数量</th>
                             <th>消费时间</th>
-
                         </tr>
                         </thead>
                         <tbody>
-
                         <tr>
                             <td>10001</td>
                             <td>a100720170919</td>
                             <td>d7985172</td>
                             <td>100</td>
                             <td>20170919</td>
-
                         </tr>
-
-
-
                         </tbody>
                     </table>
                 </div>
@@ -239,7 +223,6 @@
                         </tr>
                         </thead>
                         <tbody>
-
                         <tr>
                             <td>10001</td>
                             <td>wjhhh</td>
@@ -252,13 +235,9 @@
                             <td>王军会</td>
                             <td>2017</td>
                         </tr>
-
-
-
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
 
@@ -271,8 +250,6 @@
     <table class="layui-table">
         <colgroup>
             <col width="50">
-
-
             <col width="100">
             <col width="200">
             <col width="200">
@@ -282,7 +259,6 @@
         </colgroup>
         <thead>
         <tr>
-
             <th>商品明细编号</th>
             <th>明细名称</th>
             <th>销售价格</th>
@@ -292,31 +268,22 @@
 
         </tr>
         </thead>
-
-
             <tbody>
             <#list prduct as item>
-
             <tr>
                 <td>${item.prd_dtl_id}</td>
                 <td>${item.prd_dtl_name}</td>
                 <td>${item.sale_price}</td>
                 <td>${item.totalcount}</td>
                 <td><input type="number" name="num" min="1" max="10" /></td>
-
                 <td> <input type="checkbox" name="prd_dtl_id" value="${item.prd_dtl_id}" ></td>
-
             </tr>
-
             </#list>
             </tbody>
-
     </table>
     <div class="layui-input-inline">
         <button class="layui-btn" lay-submit >确认订单</button>
-
     </div>
-
 </div></form>
 <script type="text/javascript" src="/resources/layui/layui.js"></script>
 <script type="text/javascript">

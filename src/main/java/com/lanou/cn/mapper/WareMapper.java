@@ -38,4 +38,20 @@ public interface WareMapper {
     @Insert("insert into ware(w_no,w_name,w_addr,is_used,w_type) values(#{params.wareNo},#{params.wareName},#{params.wareAddr},#{params.isUsed},#{params.wareType})")
     void addWare(@Param("params") Map<String,Object> params);
 
+    @Update("UPDATE ord_bsc_info  \n" +
+            "LEFT JOIN order_ware  \n" +
+            "ON order_ware.ord_no = ord_bsc_info.ord_no\n" +
+            "LEFT JOIN ord_dtl_info  \n" +
+            "ON order_ware.ord_dtl_no = ord_dtl_info.ord_dtl_no\n" +
+            "LEFT JOIN prodetail_ware_relation\n" +
+            "on prodetail_ware_relation.prd_dtl_no = order_ware.ord_dtl_no \n" +
+            "SET ord_sts_cd='已取消',\n" +
+            "order_status='已取消',\n" +
+            "order_ware.occ_count = order_ware.occ_count + ord_dtl_info.prd_count ,\n" +
+            "prodetail_ware_relation.w_count = prodetail_ware_relation.w_count\n" +
+            "WHERE ord_bsc_info.ord_no='D2'")
+    void updateWare2(String ord_no);
+
+
+
 }

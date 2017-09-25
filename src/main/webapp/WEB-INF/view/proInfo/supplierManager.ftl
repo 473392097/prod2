@@ -74,14 +74,6 @@
                 <th>供应商等级</th>
                 <th>编辑</th>
 
-            <#--<div class="layui-btn-group">-->
-
-            <#--<button class="layui-btn layui-btn-small">-->
-            <#--<i class="layui-icon">&#xe642;</i>-->
-            <#--</button>-->
-
-            <#--</div>-->
-
             </tr>
             </thead>
             <tbody>
@@ -145,7 +137,9 @@
             pages : ptotalpages,//总页数
             curr : pindex,//当前页。
             skip : true,
+
             jump : function(obj, first) {
+
                 $("#currentPage").val(obj.curr);//设置当前页
                 //防止无限刷新,
                 //只有监听到的页面index 和当前页不一样是才出发分页查询

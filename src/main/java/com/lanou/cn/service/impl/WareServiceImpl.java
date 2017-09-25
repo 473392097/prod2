@@ -54,4 +54,9 @@ public class WareServiceImpl implements WareService {
     public void addWare(Map<String, Object> params) {
         wareMapper.addWare(params);
     }
+
+    @Override
+    public void updateWare2(String ord_no) {
+        wareMapper.updateWare2(ord_no);
+    }
 }

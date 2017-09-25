@@ -25,4 +25,8 @@ public interface WareService {
      * @param params
      */
     void addWare(Map<String,Object> params);
+
+
+    void updateWare2(String ord_no);
+
 }
