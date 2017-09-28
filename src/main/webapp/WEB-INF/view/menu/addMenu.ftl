@@ -127,6 +127,11 @@
             return false;//return false 表示不通过页面刷新方式提交表单
         });
     });
+
+   var a = '[{"name":"lilili","age":"18"},{"name":"lilili","age":"18"},{"name":"lilili","age":"18"}]'
+   var jsonobj = JSON.parse(a);
+   console.log(jsonobj)
+
 </script>
 </body>
 </html>

@@ -66,21 +66,21 @@
 <div class="layui-form">
     <table class="layui-table">
         <colgroup>
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col width="50">
-            <col>
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+
         </colgroup>
         <thead>
         <tr>
@@ -121,8 +121,8 @@
 
             <td>
                 <div class="layui-btn-group">
-                    <button name="cancel" type="button" value="${item.ord_no! ''}" lay-filter="cancel"   class="layui-btn layui-btn-small cancel">
-                       取消订单
+                    <button id="cancel"  name="cancel" type="button" value="${item.ord_no! ''}" lay-filter="cancel"   class="layui-btn layui-btn-small cancel">
+                     取消订单
                     </button>
                 </div>
             </td>
@@ -193,13 +193,21 @@
 
         // 监听取消订单按钮
         $(".cancel").on("click",function(){
+
             var ord_no =this.value
+            console.log($(this))
+            console.log( $(".cancel"))
             layer.open({
-                title: '取消订单'
+                title: '取消成功'
                 ,area: ['10px', '10px']
                 ,type: 2 //content内容为一个连接
                 ,content: '/order/cancelOrder.do?ord_no=' + ord_no
             });
+
+            $(this).attr("disabled",true);
+//            $(this).style.color="Red";
+            $(this).attr("style","color:#9BA5AF;");
+
         })
 
 

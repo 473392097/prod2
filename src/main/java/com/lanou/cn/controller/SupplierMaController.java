@@ -40,19 +40,13 @@ public class SupplierMaController {
     @RequestMapping("getSupList")
     public ModelAndView mainPage(@RequestParam Map<String,Object> params){
         ModelAndView modelAndView = new ModelAndView();
-
-        System.out.println(params);
         //新加的
         RestTemplate restTemplate=new RestTemplate();
         MultiValueMap<String,Object> bodyMap=new LinkedMultiValueMap<>();
-
         bodyMap.add("currentPage",null == params.get("currentPage")?"1" : params.get("currentPage"));
         bodyMap.add("size",5);
-        System.out.println("uhghh"+restTemplate.postForObject("http://localhost:8888/sup/getSupList", bodyMap, Map.class));
-        Map<String,Object> result1 =restTemplate.postForObject("http://localhost:8888/sup/getSupList", bodyMap, Map.class);
-        System.out.println(result1.get("pages"));
-        System.out.println(result1.get("list"));
-        System.out.println("找到了");
+        System.out.println("uhghh"+restTemplate.postForObject("http://10.90.86.244:8888/sup/getSupList", bodyMap, Map.class));
+        Map<String,Object> result1 =restTemplate.postForObject("http://10.90.86.244:8888/sup/getSupList", bodyMap, Map.class);
         modelAndView.addObject("list",result1.get("list"));
         modelAndView.addObject("page",result1);
         modelAndView.addObject("param",params);
@@ -66,7 +60,6 @@ public class SupplierMaController {
 //        System.out.println(params.get("supName"));
 //        System.out.println(params.get("supComp"));
 //        System.out.println(params.get("supAddr"));
-//        System.out.println("返回到前端");
         modelAndView.setViewName("/proInfo/supplierManager");
         return modelAndView;
     }

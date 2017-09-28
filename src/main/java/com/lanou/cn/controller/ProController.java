@@ -32,13 +32,15 @@ public class ProController {
     @Autowired
     private ProDetailMapper mapper;
 
-    //跳转到前端添加商品页面
+
+//   ———————————————————————————————— 跳转到前端添加商品页面 li————————————————————————
     @RequestMapping("addProduct")
     public String addProduct(){
         return "proInfo/addPro";
     }
 
 
+    //---li---
     //查询商品类别,返回集合对象
     @ModelAttribute("proType")
     public List<Map<String,Object>> proType(){
@@ -48,7 +50,7 @@ public class ProController {
        return list;
     }
 
-   // 查询供应商表,返回集合对象
+   //--li---
     @ModelAttribute("supplier")
     public List<Map<String,Object>> supplier(){
         List<Map<String,Object>> list =proInfoService.supplier();
@@ -56,7 +58,7 @@ public class ProController {
         return list;
     }
 
-    // 查询供应商表,返回集合对象
+    //--li--- 查询供应商表,返回集合对象
     @ModelAttribute("proInfo")
     public List<Map<String,Object>> proInfo(){
         List<Map<String,Object>> list =proInfoService.proInfo();
@@ -67,7 +69,7 @@ public class ProController {
 
 
 
-    //添加商品信息
+    //添加商品信息--li---
     @RequestMapping("addProInfo")
     @ResponseBody
     public Map<String,Object> addProInfo(@RequestParam Map<String,Object> params,HttpServletRequest request){
@@ -99,7 +101,7 @@ public class ProController {
 
 
 
-
+    //添加商品信息--li---
     @RequestMapping("upload")
     @ResponseBody
     public Map<String, Object> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
@@ -122,22 +124,6 @@ public class ProController {
         result.put("result", "success");
         return result;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

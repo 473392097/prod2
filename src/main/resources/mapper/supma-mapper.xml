@@ -5,7 +5,7 @@
 
 <mapper namespace="com.lanou.cn.mapper.SupMaMapper">
 
-
+<!--***********lilili 供应商管理分页查询-->
     <select id="find"  resultType="java.util.HashMap" parameterType="map" >
         select
         id

@@ -153,19 +153,19 @@
             }
         });
 
-//        // 监听注册按钮
-//        form.on('submit(formDemo)', function(data){
-////            layer.msg(JSON.stringify(data.field));
-//            $.ajax({
-//                url: "/index/mainPage.do",  //后台程序地址
-//                type: "POST",
-//                data: data.field,  //需要post的数据
-//                success:function (data) {
-//                }
-//
-//            });
-//
-//        });
+        // 监听注册按钮
+        form.on('submit(formDemo)', function(data){
+//            layer.msg(JSON.stringify(data.field));
+            $.ajax({
+                url: "/sup/getSupList.do",  //后台程序地址
+                type: "POST",
+                data: data.field,  //需要post的数据
+                success:function (data) {
+                }
+
+            });
+
+        });
 
 
 

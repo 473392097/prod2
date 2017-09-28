@@ -42,8 +42,8 @@ public class OrderInfoController {
 //        date_min
         System.out.println("最低时间"+params.get("date_min"));
         System.out.println("最晚时间"+params.get("date_max"));
-        System.out.println("uhghh"+restTemplate.postForObject("http://10.90.86.244:8080/order/getOrderInfo", bodyMap, Map.class));
-        Map<String,Object> result1 =restTemplate.postForObject("http://10.90.86.244:8080/order/getOrderInfo", bodyMap, Map.class);
+        System.out.println("uhghh"+restTemplate.postForObject("http://10.90.86.244:8888/order/getOrderInfo", bodyMap, Map.class));
+        Map<String,Object> result1 =restTemplate.postForObject("http://10.90.86.244:8888/order/getOrderInfo", bodyMap, Map.class);
         System.out.println(result1);
         System.out.println(result1.get("pages"));
         System.out.println(result1.get("list"));
@@ -65,7 +65,7 @@ public class OrderInfoController {
         Map<String,Object> map = new HashMap<>();
         wareService.updateWare2(ord_no);
         System.out.println("##############结束了");
-        return "取消成功";
+        return "成功";
     }
 
 

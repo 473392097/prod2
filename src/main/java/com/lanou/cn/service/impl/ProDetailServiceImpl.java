@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.Map;
 @Service
 @Transactional
-//@CacheConfig(cacheNames = "proDetail")
+
 public class ProDetailServiceImpl implements ProDetailService {
     @Autowired
     private ProDetailMapper mapper;
 
 
     @Override
-//    @Cacheable("getAllDetail")
+//     @Cacheable("getAllDetail")
     public PageInfo<Map<String, Object>> getAllDetail(Map<String,Object> params) {
         Integer currentPage = params.get("currentPage") == null ? 1:Integer.parseInt((String)params.get("currentPage"));
 

@@ -49,7 +49,7 @@ public interface WareMapper {
             "order_status='已取消',\n" +
             "order_ware.occ_count = order_ware.occ_count + ord_dtl_info.prd_count ,\n" +
             "prodetail_ware_relation.w_count = prodetail_ware_relation.w_count\n" +
-            "WHERE ord_bsc_info.ord_no='D2'")
+            "WHERE ord_bsc_info.ord_no=#{ord_no} ")
     void updateWare2(String ord_no);
 
 
